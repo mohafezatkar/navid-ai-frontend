@@ -1,0 +1,10 @@
+import { Loader2 } from "lucide-react";
+
+export function AssistantTypingRow() {
+  return (
+    <div className="flex items-center gap-2 rounded-lg border border-border/70 bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+      <Loader2 className="size-4 animate-spin" />
+      Assistant is typing...
+    </div>
+  );
+}
