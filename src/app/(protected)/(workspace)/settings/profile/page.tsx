@@ -4,7 +4,7 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionCard } from "@/components/shared/section-card";
-import { ProfileForm } from "@/components/settings/profile-form";
+import { ProfileForm } from "@/features/settings/components/profile-form";
 import { useProfileQuery } from "@/features/settings/hooks/use-profile-query";
 
 export default function ProfileSettingsPage() {
@@ -38,3 +38,4 @@ export default function ProfileSettingsPage() {
     </div>
   );
 }
+

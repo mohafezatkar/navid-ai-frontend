@@ -4,7 +4,7 @@ import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionCard } from "@/components/shared/section-card";
-import { PreferencesForm } from "@/components/settings/preferences-form";
+import { PreferencesForm } from "@/features/settings/components/preferences-form";
 import { useModelsQuery } from "@/features/chat/hooks/use-models-query";
 import { usePreferencesQuery } from "@/features/settings/hooks/use-preferences-query";
 
@@ -45,3 +45,4 @@ export default function PreferencesPage() {
     </div>
   );
 }
+

@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { AuthCard } from "@/components/auth/auth-card";
-import { AuthForm } from "@/components/auth/auth-form";
+import { AuthCard } from "@/features/auth/components/auth-card";
+import { AuthForm } from "@/features/auth/components/auth-form";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -99,3 +99,4 @@ export default function ForgotPasswordPage() {
     </AuthCard>
   );
 }
+

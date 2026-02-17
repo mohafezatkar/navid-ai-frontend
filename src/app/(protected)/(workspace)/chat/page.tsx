@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { ChatEmptyState } from "@/components/chat/chat-empty-state";
-import { ModelSelector } from "@/components/chat/model-selector";
+import { ChatEmptyState } from "@/features/chat/components/chat-empty-state";
+import { ModelSelector } from "@/features/chat/components/model-selector";
 import { ErrorState } from "@/components/shared/error-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -101,3 +101,4 @@ export default function ChatHomePage() {
     </div>
   );
 }
+

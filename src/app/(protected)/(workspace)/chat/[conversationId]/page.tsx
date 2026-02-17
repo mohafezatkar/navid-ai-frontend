@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 
-import { Composer } from "@/components/chat/composer";
-import { MessageList } from "@/components/chat/message-list";
-import { StreamControls } from "@/components/chat/stream-controls";
+import { Composer } from "@/features/chat/components/composer";
+import { MessageList } from "@/features/chat/components/message-list";
+import { StreamControls } from "@/features/chat/components/stream-controls";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
@@ -249,3 +249,4 @@ export default function ConversationPage() {
     </div>
   );
 }
+

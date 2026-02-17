@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { AuthCard } from "@/components/auth/auth-card";
-import { AuthForm } from "@/components/auth/auth-form";
-import { PasswordField } from "@/components/auth/password-field";
+import { AuthCard } from "@/features/auth/components/auth-card";
+import { AuthForm } from "@/features/auth/components/auth-form";
+import { PasswordField } from "@/features/auth/components/password-field";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -120,3 +120,4 @@ export default function ResetPasswordPage() {
     </AuthCard>
   );
 }
+

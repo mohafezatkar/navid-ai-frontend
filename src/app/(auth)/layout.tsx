@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AuthAsidePanel } from "@/components/auth/auth-aside-panel";
+import { AuthAsidePanel } from "@/features/auth/components/auth-aside-panel";
 import { PublicOnlyGuard } from "@/features/auth/components/public-only-guard";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -17,3 +17,4 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     </PublicOnlyGuard>
   );
 }
+

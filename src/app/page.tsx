@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { NavidLandingPage } from "@/components/landing/navid-landing-page";
+import { LandingPage } from "@/features/landing";
 
 export const metadata: Metadata = {
   title: "Navid AI",
@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <NavidLandingPage />;
+  return <LandingPage />;
 }
+
 

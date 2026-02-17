@@ -44,10 +44,13 @@ ChatGPT-like frontend built on Next.js 16 App Router, with ShadCN, Framer Motion
 | `/help` | Auth + onboarding complete | Searchable help articles |
 
 ## Component Architecture
-- `src/components/auth/*`: auth cards/forms/password/oAuth controls.
-- `src/components/chat/*`: composer, messages, attachments, model selector, stream controls.
-- `src/components/shell/*`: sidebar, conversation list, user menu, workspace shell.
-- `src/components/settings/*`: profile form, preferences form, theme toggle.
+- `src/features/auth/components/*`: auth cards/forms/password/oAuth controls + route guards.
+- `src/features/chat/components/*`: composer, messages, attachments, model selector, stream controls.
+- `src/features/workspace/components/*`: sidebar, conversation list, user menu, workspace shell.
+- `src/features/settings/components/*`: profile form, preferences form, theme toggle.
+- `src/features/landing/layout/*`: landing layout primitives (header/nav).
+- `src/features/landing/sections/*`: page sections (hero/features/workflow/cta).
+- `src/features/landing/visuals/*`: shader palette and background visuals.
 - `src/components/shared/*`: page header, section card, loading/error/confirm components.
 - `src/components/ui/*`: ShadCN primitives (button, input, form, dialog, dropdown, etc).
 
@@ -107,18 +110,19 @@ src/
     globals.css
     layout.tsx
   components/
-    auth/
-    chat/
     providers/
-    settings/
     shared/
-    shell/
     ui/
   features/
     auth/
     chat/
     help/
+    landing/
+      layout/
+      sections/
+      visuals/
     settings/
+    workspace/
   lib/
     api/
     contracts/

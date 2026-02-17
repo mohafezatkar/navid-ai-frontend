@@ -11,11 +11,11 @@ import { z } from "zod";
 import { Loader2 } from "lucide-react";
 
 import type { Session } from "@/lib/api/types";
-import { AuthCard } from "@/components/auth/auth-card";
-import { AuthForm } from "@/components/auth/auth-form";
-import { OAuthButtons } from "@/components/auth/oauth-buttons";
-import { PasswordField } from "@/components/auth/password-field";
-import { AuthStepTransition } from "@/components/auth/auth-step-transition";
+import { AuthCard } from "@/features/auth/components/auth-card";
+import { AuthForm } from "@/features/auth/components/auth-form";
+import { OAuthButtons } from "@/features/auth/components/oauth-buttons";
+import { PasswordField } from "@/features/auth/components/password-field";
+import { AuthStepTransition } from "@/features/auth/components/auth-step-transition";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -468,3 +468,4 @@ export default function SignupPage() {
     </AuthCard>
   );
 }
+
