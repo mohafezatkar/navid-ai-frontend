@@ -1,12 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUp } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { InfiniteSlider } from "@/components/ui/infinite-slider"
-import { Input } from "@/components/ui/input"
-import { ProgressiveBlur } from "@/components/ui/progressive-blur"
+import { Textarea } from "@/components/ui/textarea"
 
 const PLACEHOLDER_PROMPTS = [
   "Ask anything\u2026",
@@ -25,11 +24,18 @@ const TYPING_SPEED_MS = 55
 const DELETING_SPEED_MS = 32
 const HOLD_AFTER_TYPING_MS = 1300
 const HOLD_AFTER_DELETING_MS = 280
+const HERO_ENTRANCE_DELAY_SECONDS = 0.52
+const HERO_ENTRANCE_DELAY_REDUCED_SECONDS = 0.18
+const HERO_ENTRANCE_DURATION_REDUCED_SECONDS = 0.34
+const HERO_TEXT_DURATION_SECONDS = 0.92
+const HERO_CHAT_DURATION_SECONDS = 1.08
+const HERO_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
 export function HeroSection() {
   const [activePromptIndex, setActivePromptIndex] = useState(0)
   const [typedPlaceholder, setTypedPlaceholder] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   const activePrompt = PLACEHOLDER_PROMPTS[activePromptIndex]
 
@@ -54,37 +60,109 @@ export function HeroSection() {
     return () => window.clearTimeout(timeoutId)
   }, [activePrompt, isDeleting, typedPlaceholder])
 
+  const containerVariants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            duration: HERO_ENTRANCE_DURATION_REDUCED_SECONDS,
+            delayChildren: HERO_ENTRANCE_DELAY_REDUCED_SECONDS,
+            staggerChildren: 0.06,
+          },
+        },
+      }
+    : {
+        hidden: {},
+        visible: {
+          transition: { delayChildren: HERO_ENTRANCE_DELAY_SECONDS, staggerChildren: 0.1 },
+        },
+      }
+
+  const textItemVariants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: HERO_ENTRANCE_DURATION_REDUCED_SECONDS } },
+      }
+    : {
+        hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: HERO_TEXT_DURATION_SECONDS, ease: HERO_EASE },
+        },
+      }
+
+  const chatInputVariants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: HERO_ENTRANCE_DURATION_REDUCED_SECONDS } },
+      }
+    : {
+        hidden: { opacity: 0, y: 22, scale: 0.985, filter: "blur(8px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          transition: { duration: HERO_CHAT_DURATION_SECONDS, ease: HERO_EASE },
+        },
+      }
+
   return (
-    <div className="relative min-h-[100svh] overflow-x-hidden">
-      <section className="flex min-h-[100svh] items-center justify-center">
-        <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center text-foreground">
-          <span className="inline-flex items-center rounded-full border border-border/70 bg-background/60 px-5 py-1.5 text-base text-muted-foreground md:text-lg">
+    <div className="relative min-h-svh overflow-x-hidden">
+      <section className="flex min-h-svh items-center justify-center">
+        <motion.div
+          className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center text-foreground"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.span
+            variants={textItemVariants}
+            className="inline-flex items-center rounded-full border border-border bg-background/70 px-5 py-1.5 text-base text-foreground shadow-sm backdrop-blur-md md:text-lg"
+          >
             Navid 1.0 - Public Launch Coming Soon
-          </span>
-          <h1 className="mt-6 max-w-6xl text-balance text-[clamp(2rem,6vw,5rem)] font-semibold leading-tight tracking-tight">
+          </motion.span>
+          <motion.h1
+            variants={textItemVariants}
+            className="mt-6 max-w-6xl text-balance text-[clamp(2rem,6vw,5rem)] font-semibold leading-tight tracking-tight"
+          >
             AI That Truly Understands You
-          </h1>
-          <p className="mt-8 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground md:text-xl md:leading-8">
-          Navid is a next-generation language model built for speed, deep reasoning, and precise results across coding, analysis, writing, and problem-solving.
-          </p>
-          <form className="mt-10 w-full max-w-3xl" onSubmit={(event) => event.preventDefault()}>
-            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card/80 p-2 shadow-sm backdrop-blur-sm">
-              <Input
-                type="text"
+          </motion.h1>
+          <motion.p
+            variants={textItemVariants}
+            className="mt-8 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground md:text-xl md:leading-8"
+          >
+            Navid is a next-generation language model built for speed, deep reasoning, and precise
+            results across coding, analysis, writing, and problem-solving.
+          </motion.p>
+          <motion.form
+            variants={chatInputVariants}
+            className="mt-10 w-full max-w-3xl"
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <div className="relative rounded-3xl border border-border bg-card/80 p-3 shadow-sm backdrop-blur-sm">
+              <Textarea
                 placeholder={typedPlaceholder}
                 aria-label="Prompt input"
-                className="h-12 border-0 bg-transparent px-4 text-lg shadow-none placeholder:font-medium placeholder:text-lg focus-visible:ring-0"
+                className="h-16 resize-none border-0 bg-transparent px-5 py-3 pr-16 text-lg leading-6 shadow-none field-sizing-fixed placeholder:font-medium placeholder:text-lg focus-visible:ring-0 md:h-32 md:px-6 md:py-4 md:pr-20 md:text-lg md:placeholder:text-lg"
               />
-              <Button type="submit" size="lg" className="h-12 rounded-xl px-6 text-base font-semibold">
-                Ask Navid
+              <Button
+                type="submit"
+                size="icon"
+                className="absolute bottom-4 right-4 h-9 w-9 rounded-full"
+                aria-label="Send prompt"
+              >
                 <ArrowUp className="size-4" />
               </Button>
             </div>
-          </form>
-        </div>
+          </motion.form>
+        </motion.div>
       </section>
 
-      <section className="absolute inset-x-0 bottom-0 pb-16 md:pb-24">
+      {/* <section className="absolute inset-x-0 bottom-0 pb-16 md:pb-24">
         <div className="group relative w-full px-3 md:px-6">
           <div className="flex w-full flex-col items-center gap-4 md:flex-row">
             <div className="w-full text-center md:w-56 md:border-r md:border-border/60 md:pr-6 md:text-right">
@@ -183,7 +261,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

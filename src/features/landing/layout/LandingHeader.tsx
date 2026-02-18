@@ -2,12 +2,13 @@
 
 import type { ReactNode } from "react"
 import { useEffect, useState } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu } from "lucide-react"
-import { MeshGradient, StaticMeshGradient } from "@paper-design/shaders-react"
 
 import { cn } from "@/lib/utils"
+import { MeshShaderBackground } from "@/components/shared/mesh-shader-background"
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -16,8 +17,10 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { ShowcaseBackground } from "@/features/landing/visuals/ShowcaseBackground"
-import { SHADER_PALETTE } from "@/features/landing/visuals/shaderPalette"
+import {
+  createRevealContainerVariants,
+  createRevealItemVariants,
+} from "@/features/landing/lib/motion"
 
 const NAV_ITEMS = [
   { label: "API Platform", href: "#link" },
@@ -28,81 +31,18 @@ const NAV_ITEMS = [
   { label: "Career", href: "#link" },
 ]
 
-const SHADER_COLORS = [
-  SHADER_PALETTE.ink,
-  SHADER_PALETTE.blueBlack,
-  SHADER_PALETTE.deepNavy,
-  SHADER_PALETTE.midnight,
-  SHADER_PALETTE.deepSlate,
-  SHADER_PALETTE.deepTealSlate,
-  SHADER_PALETTE.steelCyanBlue,
-  SHADER_PALETTE.paleBlueGray,
-]
-
-type LandingShaderBackgroundProps = {
-  animate: boolean
-}
-
-function LandingShaderBackground({ animate }: LandingShaderBackgroundProps) {
-  const [isReadyForAnimation, setIsReadyForAnimation] = useState(false)
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-
-    const enableAnimation = () => setIsReadyForAnimation(true)
-
-    if (typeof window.requestIdleCallback === "function") {
-      const idleId = window.requestIdleCallback(enableAnimation, { timeout: 1200 })
-      return () => window.cancelIdleCallback(idleId)
-    }
-
-    const timeoutId = window.setTimeout(enableAnimation, 450)
-    return () => window.clearTimeout(timeoutId)
-  }, [])
-
-  const shouldAnimate = animate && isReadyForAnimation
-
-  return (
-    <div className="absolute inset-0 z-0" style={{ backgroundColor: SHADER_PALETTE.ink }}>
-      <ShowcaseBackground className="opacity-80" />
-      {shouldAnimate ? (
-        <MeshGradient
-          className="absolute inset-0 h-full w-full opacity-80"
-          colors={SHADER_COLORS}
-          speed={0.55}
-          distortion={0.65}
-          swirl={0.08}
-          minPixelRatio={1}
-          maxPixelCount={900000}
-        />
-      ) : (
-        <StaticMeshGradient
-          className="absolute inset-0 h-full w-full opacity-80"
-          colors={SHADER_COLORS}
-          minPixelRatio={1}
-          maxPixelCount={900000}
-        />
-      )}
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute left-1/3 top-1/4 h-32 w-32 rounded-full blur-3xl"
-          style={{ backgroundColor: SHADER_PALETTE.deepTealSlate, opacity: 0.12 }}
-        />
-        <div
-          className="absolute bottom-1/3 right-1/4 h-24 w-24 rounded-full blur-2xl"
-          style={{ backgroundColor: SHADER_PALETTE.haze, opacity: 0.08 }}
-        />
-      </div>
-    </div>
-  )
-}
-
 type LandingHeaderProps = {
   children?: ReactNode
 }
 
 export function LandingHeader({ children }: LandingHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+  const navContainerVariants = createRevealContainerVariants(prefersReducedMotion, {
+    delayChildren: 0.08,
+    staggerChildren: 0.06,
+  })
+  const navItemVariants = createRevealItemVariants(prefersReducedMotion, { y: -14, duration: 0.65 })
 
   useEffect(() => {
     let ticking = false
@@ -125,8 +65,8 @@ export function LandingHeader({ children }: LandingHeaderProps) {
   }, [])
 
   return (
-    <section className="relative isolate min-h-svh overflow-hidden">
-      <LandingShaderBackground animate={true} />
+    <section className="relative min-h-svh overflow-hidden">
+      <MeshShaderBackground animate={true} />
 
       <header className="fixed inset-x-0 top-0 z-40">
         <nav
@@ -137,79 +77,100 @@ export function LandingHeader({ children }: LandingHeaderProps) {
               : "bg-transparent",
           )}
         >
-          <div className="flex w-full items-center justify-between px-6 pb-6 pt-8">
-            <Link href="/" aria-label="home" className="flex items-center text-foreground">
-              <Image
-                src="/brand/logo.svg"
-                alt="Navid"
-                width={340}
-                height={88}
-                priority
-                className="h-16 w-auto"
-              />
-              <span className="select-none text-2xl font-bold tracking-tight text-foreground/90 md:ml-1">
-                Navid
-              </span>
-            </Link>
+          <motion.div
+            className="flex w-full items-center justify-between px-6 py-1"
+            initial="hidden"
+            animate="visible"
+            variants={navContainerVariants}
+          >
+            <motion.div variants={navItemVariants}>
+              <Link href="/" aria-label="home" className="flex items-center text-foreground">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="Navid"
+                  width={340}
+                  height={88}
+                  priority
+                  className="h-16 w-auto"
+                />
+                <span className="select-none text-2xl font-bold tracking-tight text-foreground/90 md:ml-1">
+                  Navid
+                </span>
+              </Link>
+            </motion.div>
 
-            <div className="ml-auto flex items-center gap-8">
-              <NavigationMenu viewport={false} className="hidden md:flex">
-                <NavigationMenuList className="gap-8">
-                  {NAV_ITEMS.map((item) => (
-                    <NavigationMenuItem key={item.label}>
-                      <NavigationMenuLink
-                        asChild
-                        className="rounded-none bg-transparent p-0 text-lg font-semibold text-foreground/85 transition-colors hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground"
-                      >
-                        <Link href={item.href}>{item.label}</Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu>
-
-              <Button
-                asChild
-                variant="default"
-                size="lg"
-                className="hidden text-md font-semibold md:inline-flex"
-              >
-                <Link href="#link">Try Navid</Link>
-              </Button>
-
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="text-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
-                  >
-                    <Menu className="size-6" />
-                    <span className="sr-only">Open Navigation Menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="border-l border-border bg-background/95 text-foreground">
-                  <SheetHeader>
-                    <SheetTitle>Navigation</SheetTitle>
-                  </SheetHeader>
-                  <div className="mt-4 flex flex-col gap-5 px-4">
+            <motion.div className="ml-auto flex items-center gap-8" variants={navContainerVariants}>
+              <motion.div variants={navItemVariants}>
+                <NavigationMenu viewport={false} className="hidden md:flex">
+                  <NavigationMenuList className="gap-8">
                     {NAV_ITEMS.map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        className="text-xl font-semibold text-foreground/85 transition-colors hover:text-foreground"
-                      >
-                        {item.label}
-                      </Link>
+                      <NavigationMenuItem key={item.label}>
+                        <NavigationMenuLink
+                          asChild
+                          className="rounded-none bg-transparent p-0 text-md font-semibold text-foreground/85 transition-colors hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground"
+                        >
+                          <Link href={item.href}>{item.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
                     ))}
-                    <Button asChild variant="default" size="lg" className="mt-2 font-semibold">
-                      <Link href="#link">Try Navid</Link>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </motion.div>
+
+              <motion.div variants={navItemVariants}>
+                <Button
+                  asChild
+                  variant="default"
+                  size="lg"
+                  className="hidden text-md font-semibold md:inline-flex"
+                >
+                  <Link href="/signup">Try Navid</Link>
+                </Button>
+              </motion.div>
+
+              <motion.div variants={navItemVariants}>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="text-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
+                    >
+                      <Menu className="size-6" />
+                      <span className="sr-only">Open Navigation Menu</span>
                     </Button>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
-          </div>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="border-l border-border bg-background/95 text-foreground">
+                    <SheetHeader>
+                      <SheetTitle>Navigation</SheetTitle>
+                    </SheetHeader>
+                    <motion.div
+                      className="mt-4 flex flex-col gap-5 px-4"
+                      initial="hidden"
+                      animate="visible"
+                      variants={navContainerVariants}
+                    >
+                      {NAV_ITEMS.map((item, index) => (
+                        <motion.div key={item.label} variants={createRevealItemVariants(prefersReducedMotion, { y: 10, delay: index * 0.04, duration: 0.5 })}>
+                          <Link
+                            href={item.href}
+                            className="text-xl font-semibold text-foreground/85 transition-colors hover:text-foreground"
+                          >
+                            {item.label}
+                          </Link>
+                        </motion.div>
+                      ))}
+                      <motion.div variants={createRevealItemVariants(prefersReducedMotion, { y: 10, delay: 0.24, duration: 0.5 })}>
+                        <Button asChild variant="default" size="lg" className="mt-2 font-semibold">
+                          <Link href="/signup">Try Navid</Link>
+                        </Button>
+                      </motion.div>
+                    </motion.div>
+                  </SheetContent>
+                </Sheet>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </nav>
       </header>
 

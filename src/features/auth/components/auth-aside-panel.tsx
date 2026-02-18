@@ -1,12 +1,15 @@
+import type { ReactNode } from "react";
 import { CheckCircle2, MessageSquareText, ShieldCheck } from "lucide-react";
 
-import { ShaderAnimation } from "@/components/shared/shader-animation";
+type AuthAsidePanelProps = {
+  background?: ReactNode;
+};
 
-export function AuthAsidePanel() {
+export function AuthAsidePanel({ background }: AuthAsidePanelProps) {
   return (
     <aside className="relative hidden overflow-hidden w-full border-r border-border/70 bg-muted/30 lg:flex">
       <div className="absolute inset-0">
-        <ShaderAnimation className="opacity-55" />
+        {background}
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/55 to-background/80" />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
       </div>

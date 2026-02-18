@@ -1,6 +1,14 @@
+"use client"
+
+import { motion, useReducedMotion } from "framer-motion"
 import { Brain, Circle, ImageIcon, UserRound } from "lucide-react"
 
 import { StandoutCard } from "@/features/landing/components/StandoutCard"
+import {
+  createRevealContainerVariants,
+  createRevealItemVariants,
+  LANDING_REVEAL_VIEWPORT,
+} from "@/features/landing/lib/motion"
 
 const STANDOUT_CARDS = [
   {
@@ -24,31 +32,43 @@ const STANDOUT_CARDS = [
 ]
 
 export function StandoutSection() {
+  const prefersReducedMotion = useReducedMotion()
+  const containerVariants = createRevealContainerVariants(prefersReducedMotion)
+  const itemVariants = createRevealItemVariants(prefersReducedMotion)
+
   return (
-    <section className="relative isolate overflow-hidden bg-transparent px-6 py-14 md:px-10 md:py-16">
-      <div className="mx-auto max-w-5xl text-center">
-        <p className="inline-flex items-center justify-center gap-2 text-sm font-medium text-primary">
+    <motion.section
+      className="relative isolate overflow-hidden bg-transparent px-6 py-14 md:px-10 md:py-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={LANDING_REVEAL_VIEWPORT}
+    >
+      <motion.div className="mx-auto max-w-5xl text-center" variants={containerVariants}>
+        <motion.p className="inline-flex items-center justify-center gap-2 text-sm font-medium text-primary" variants={itemVariants}>
           <Circle className="size-2 fill-current" />
           Why Navid Stands Out
-        </p>
-        <h2 className="mt-4 text-balance text-[clamp(2rem,4.8vw,4.5rem)] font-semibold leading-[1.08] tracking-tight text-foreground">
+        </motion.p>
+        <motion.h2
+          className="mt-4 text-balance text-[clamp(2rem,4.8vw,4.5rem)] font-semibold leading-[1.08] tracking-tight text-foreground"
+          variants={itemVariants}
+        >
           Smarter responses. Stunning visuals. Always adaptive
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-7 text-muted-foreground md:text-lg">
+        </motion.h2>
+        <motion.p
+          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-7 text-muted-foreground md:text-lg"
+          variants={itemVariants}
+        >
           Navid provides powerful, personalized support that feels intuitive and responsive.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      <div className="mx-auto mt-12 grid max-w-7xl gap-6 md:grid-cols-3">
-        {STANDOUT_CARDS.map((card) => (
-          <StandoutCard
-            key={card.title}
-            title={card.title}
-            description={card.description}
-            icon={card.icon}
-          />
+      <motion.div className="mx-auto mt-12 grid max-w-7xl gap-6 md:grid-cols-3" variants={containerVariants}>
+        {STANDOUT_CARDS.map((card, index) => (
+          <motion.div key={card.title} variants={createRevealItemVariants(prefersReducedMotion, { delay: index * 0.06, y: 26 })}>
+            <StandoutCard title={card.title} description={card.description} icon={card.icon} />
+          </motion.div>
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   )
 }
