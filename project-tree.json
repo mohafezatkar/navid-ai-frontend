@@ -1,0 +1,1162 @@
+﻿{
+    "name":  ".",
+    "type":  "directory",
+    "children":  [
+                     {
+                         "name":  "api",
+                         "type":  "directory",
+                         "children":  [
+                                          {
+                                              "name":  "api-contract-v1.md",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "apps",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "__init__.py",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "authentication",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "__init__.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "apps.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "migrations",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "__init__.py",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "0001_initial.py",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "models.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "serializers.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "services.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "tests.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "urls.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "views.py",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "onboarding",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "__init__.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "apps.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "migrations",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "__init__.py",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "0001_initial.py",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "models.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "serializers.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "urls.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "views.py",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "config",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "__init__.py",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "asgi.py",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "settings",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "__init__.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "base.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "local.py",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "prod.py",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "urls.py",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "wsgi.py",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "core",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "__init__.py",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "exceptions.py",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "FEATURE_FLOWS.md",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "manage.py",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "openapi.yaml",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "PROJECT_STRUCTURE.md",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "README.md",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "requirements.txt",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "SYSTEM_CONTEXT.md",
+                                              "type":  "file"
+                                          }
+                                      ]
+                     },
+                     {
+                         "name":  "components.json",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "docs",
+                         "type":  "directory",
+                         "children":  [
+                                          {
+                                              "name":  "api-contract-v1.md",
+                                              "type":  "file"
+                                          }
+                                      ]
+                     },
+                     {
+                         "name":  "eslint.config.mjs",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "next.config.ts",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "package.json",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "pnpm-lock.yaml",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "pnpm-workspace.yaml",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "postcss.config.mjs",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "project-tree.json",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "public",
+                         "type":  "directory",
+                         "children":  [
+                                          {
+                                              "name":  "brand",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "logo.svg",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "icons",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "android-chrome-192x192.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "android-chrome-512x512.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "apple-touch-icon.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "favicon.ico",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "favicon-16x16.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "favicon-32x32.png",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "image-generation",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "1.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "2.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "3.png",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "manifest.webmanifest",
+                                              "type":  "file"
+                                          },
+                                          {
+                                              "name":  "mockServiceWorker.js",
+                                              "type":  "file"
+                                          }
+                                      ]
+                     },
+                     {
+                         "name":  "README.md",
+                         "type":  "file"
+                     },
+                     {
+                         "name":  "src",
+                         "type":  "directory",
+                         "children":  [
+                                          {
+                                              "name":  "app",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "(auth)",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "components",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "auth-aside-panel.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "auth-card.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "auth-form.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "auth-step-transition.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "oauth-buttons.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "password-field.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "public-only-guard.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "require-onboarding-complete.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "forgot-password",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "page.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "hooks",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "use-auth-mutations.ts",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "use-session-query.ts",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "layout.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "login",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "page.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "reset-password",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "page.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "services",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "authService.ts",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "signup",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "page.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "(marketing)",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "landing",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "components",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "StandoutCard.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "index.ts",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "LandingPage.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "layout",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "LandingFooter.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "LandingHeader.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "lib",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "motion.ts",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "sections",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "EnginePowerSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "HeroSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "ImageGenerationSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "IntelligenceSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "LaunchCtaSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "StandoutSection.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "visuals",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "RadialGlowBackground.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         }
+                                                                                                     ]
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "(protected)",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "(workspace)",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "chat",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "[conversationId]",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "page.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "components",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "assistant-typing-row.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "attachment-chip.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "attachment-picker.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "chat-empty-state.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "composer.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "message-bubble.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "message-list.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "model-selector.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "stream-controls.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "hooks",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-chat-mutations.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-conversation-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-conversations-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-models-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "lib",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "attachment-validation.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "page.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "services",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "chatService.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "components",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "app-sidebar.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "conversation-list.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "mobile-nav-sheet.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "sidebar-header.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "user-menu.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "workspace-shell.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "error.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "help",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "hooks",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-help-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "page.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "services",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "helpService.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "layout.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "settings",
+                                                                                                             "type":  "directory",
+                                                                                                             "children":  [
+                                                                                                                              {
+                                                                                                                                  "name":  "components",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "preferences-form.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "profile-form.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "theme-toggle.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "hooks",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-preferences-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   },
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "use-profile-query.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "layout.tsx",
+                                                                                                                                  "type":  "file"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "preferences",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "page.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "profile",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "page.tsx",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "name":  "services",
+                                                                                                                                  "type":  "directory",
+                                                                                                                                  "children":  [
+                                                                                                                                                   {
+                                                                                                                                                       "name":  "settingsService.ts",
+                                                                                                                                                       "type":  "file"
+                                                                                                                                                   }
+                                                                                                                                               ]
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "components",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "require-session.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "layout.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "onboarding",
+                                                                                        "type":  "directory",
+                                                                                        "children":  [
+                                                                                                         {
+                                                                                                             "name":  "page.tsx",
+                                                                                                             "type":  "file"
+                                                                                                         }
+                                                                                                     ]
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "apple-icon.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "error.tsx",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "favicon.ico",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "globals.css",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "icon.png",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "layout.tsx",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "not-found.tsx",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "page.tsx",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "components",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "shared",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "confirm-dialog.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "error-state.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "loading-state.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "mesh-shader-background.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "page-header.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "section-card.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "shader-animation.tsx",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "ui",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "alert-dialog.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "avatar.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "badge.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "button.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "card.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "dialog.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "dropdown-menu.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "form.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "infinite-slider.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "input.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "label.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "navigation-menu.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "progressive-blur.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "scroll-area.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "select.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "sheet.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "skeleton.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "sonner.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "switch.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "tabs.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "textarea.tsx",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "tooltip.tsx",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "lib",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "api",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "client.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "config.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "fetch-json.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "index.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "types.ts",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "attachment-rules.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "contracts",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "auth.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "chat.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "common.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "help.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "index.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "settings.ts",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "http-client.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "query-keys.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "utils.ts",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "mocks",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "browser.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "data",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "db.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "errors.ts",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "handlers",
+                                                                   "type":  "directory",
+                                                                   "children":  [
+                                                                                    {
+                                                                                        "name":  "auth.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "chat.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "help.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "index.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "settings.ts",
+                                                                                        "type":  "file"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "utils.ts",
+                                                                                        "type":  "file"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                               {
+                                                                   "name":  "index.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "server.ts",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "providers",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "app-providers.tsx",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "theme-provider.tsx",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          },
+                                          {
+                                              "name":  "stores",
+                                              "type":  "directory",
+                                              "children":  [
+                                                               {
+                                                                   "name":  "draft-store.ts",
+                                                                   "type":  "file"
+                                                               },
+                                                               {
+                                                                   "name":  "ui-store.ts",
+                                                                   "type":  "file"
+                                                               }
+                                                           ]
+                                          }
+                                      ]
+                     },
+                     {
+                         "name":  "tsconfig.json",
+                         "type":  "file"
+                     }
+                 ]
+}

@@ -82,6 +82,7 @@ ChatGPT-like frontend built on Next.js 16 App Router, with ShadCN, Framer Motion
 ## API Mode
 - Default behavior is mock mode.
 - Set `NEXT_PUBLIC_API_MODE=live` to disable MSW interception and use real backend endpoints.
+- Set `NEXT_PUBLIC_API_URL` to point to the backend origin (for example `http://127.0.0.1:8000`).
 - Current live-mode streaming is adapter-ready but simplified (mock mode simulates token streaming).
 
 ## Auth and Guards

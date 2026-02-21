@@ -6,7 +6,7 @@ import {
   resetPasswordInputSchema,
   signupInputSchema,
 } from "@/lib/contracts";
-import { API_PREFIX } from "@/lib/api/constants";
+import { API_PREFIX } from "@/lib/api/config";
 import { mockDb } from "@/mocks/data/db";
 import { asMockErrorResponse } from "@/mocks/handlers/utils";
 

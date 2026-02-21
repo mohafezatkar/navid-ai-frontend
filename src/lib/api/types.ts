@@ -1,40 +1,28 @@
-export type Session = {
-  userId: string;
-  email: string;
-  name: string | null;
-  onboardingComplete: boolean;
-};
+import type {
+  Attachment,
+  Conversation,
+  HelpArticle,
+  Message,
+  Model,
+  Preferences,
+  Profile,
+  Session,
+  SignupStartResponse,
+  SignupVerifyCodeResponse,
+  SignupVerification,
+} from "@/lib/contracts";
 
-export type Model = {
-  id: string;
-  label: string;
-  capabilities: ("text" | "image" | "file")[];
-};
-
-export type Attachment = {
-  id: string;
-  name: string;
-  mimeType: string;
-  size: number;
-  url?: string;
-  status: "queued" | "uploading" | "uploaded" | "failed";
-};
-
-export type Message = {
-  id: string;
-  role: "user" | "assistant" | "system";
-  content: string;
-  attachments?: Attachment[];
-  createdAt: string;
-  status?: "streaming" | "done" | "error";
-};
-
-export type Conversation = {
-  id: string;
-  title: string;
-  modelId: string;
-  updatedAt: string;
-  preview: string;
+export type {
+  Attachment,
+  Conversation,
+  Model,
+  Message,
+  Preferences,
+  Profile,
+  Session,
+  SignupStartResponse,
+  SignupVerifyCodeResponse,
+  SignupVerification,
 };
 
 export type StreamEvent =
@@ -46,9 +34,19 @@ export interface ApiClient {
   auth: {
     me(): Promise<Session | null>;
     login(input: { email: string; password: string }): Promise<Session>;
-    signup(input: {
+    signupStart(input: {
       email: string;
       password: string;
+    }): Promise<SignupStartResponse>;
+    signupVerifyCode(input: {
+      signupToken: string;
+      code: string;
+    }): Promise<SignupVerifyCodeResponse>;
+    signupResendCode(input: { signupToken: string }): Promise<void>;
+    signupCompleteProfile(input: {
+      signupToken: string;
+      fullName: string;
+      birthDate: string;
     }): Promise<Session>;
     logout(): Promise<void>;
     forgotPassword(input: { email: string }): Promise<void>;
@@ -78,15 +76,15 @@ export interface ApiClient {
     listModels(): Promise<Model[]>;
   };
   settings: {
-    getProfile(): Promise<{ name: string; email: string }>;
+    getProfile(): Promise<Profile>;
     updateProfile(input: { name: string }): Promise<void>;
-    getPreferences(): Promise<{ theme: "light" | "dark" | "system"; defaultModelId: string }>;
+    getPreferences(): Promise<Preferences>;
     updatePreferences(input: {
       theme: "light" | "dark" | "system";
       defaultModelId: string;
     }): Promise<void>;
   };
   help: {
-    listArticles(): Promise<Array<{ id: string; title: string; body: string }>>;
+    listArticles(): Promise<HelpArticle[]>;
   };
 }

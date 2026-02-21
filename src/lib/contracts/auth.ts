@@ -19,6 +19,39 @@ export const signupInputSchema = z.object({
   password: z.string().min(8),
 });
 
+export const signupVerificationSchema = z.object({
+  channel: z.literal("email"),
+  codeLength: z.number().int().positive(),
+  expiresAt: z.string().datetime(),
+  resendAvailableAt: z.string().datetime(),
+});
+
+export const signupStartResponseSchema = z.object({
+  signupToken: z.string(),
+  email: z.email(),
+  verification: signupVerificationSchema,
+});
+
+export const signupVerifyCodeInputSchema = z.object({
+  signupToken: z.string().min(1),
+  code: z.string().regex(/^\d{6}$/),
+});
+
+export const signupVerifyCodeResponseSchema = z.object({
+  signupToken: z.string(),
+  emailVerified: z.boolean(),
+});
+
+export const signupResendCodeInputSchema = z.object({
+  signupToken: z.string().min(1),
+});
+
+export const signupCompleteProfileInputSchema = z.object({
+  signupToken: z.string().min(1),
+  fullName: z.string().trim().min(1),
+  birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+});
+
 export const forgotPasswordInputSchema = z.object({
   email: z.email(),
 });
@@ -29,7 +62,6 @@ export const resetPasswordInputSchema = z.object({
 });
 
 export type Session = z.infer<typeof sessionSchema>;
-export type LoginInput = z.infer<typeof loginInputSchema>;
-export type SignupInput = z.infer<typeof signupInputSchema>;
-export type ForgotPasswordInput = z.infer<typeof forgotPasswordInputSchema>;
-export type ResetPasswordInput = z.infer<typeof resetPasswordInputSchema>;
+export type SignupVerification = z.infer<typeof signupVerificationSchema>;
+export type SignupStartResponse = z.infer<typeof signupStartResponseSchema>;
+export type SignupVerifyCodeResponse = z.infer<typeof signupVerifyCodeResponseSchema>;

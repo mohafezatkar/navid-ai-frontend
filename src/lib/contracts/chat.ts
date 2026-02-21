@@ -66,17 +66,7 @@ export const regenerateLastAssistantMessageInputSchema = z.object({
   conversationId: idSchema,
 });
 
-export type ModelCapability = z.infer<typeof modelCapabilitySchema>;
 export type Model = z.infer<typeof modelSchema>;
-export type AttachmentStatus = z.infer<typeof attachmentStatusSchema>;
 export type Attachment = z.infer<typeof attachmentSchema>;
-export type MessageRole = z.infer<typeof messageRoleSchema>;
-export type MessageStatus = z.infer<typeof messageStatusSchema>;
 export type Message = z.infer<typeof messageSchema>;
 export type Conversation = z.infer<typeof conversationSchema>;
-export type SendMessageInput = z.infer<typeof sendMessageInputSchema>;
-export type CreateConversationInput = z.infer<typeof createConversationInputSchema>;
-export type EditUserMessageInput = z.infer<typeof editUserMessageInputSchema>;
-export type RegenerateLastAssistantMessageInput = z.infer<
-  typeof regenerateLastAssistantMessageInputSchema
->;

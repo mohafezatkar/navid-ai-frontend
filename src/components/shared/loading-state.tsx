@@ -1,4 +1,7 @@
+"use client";
+
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -9,10 +12,13 @@ type LoadingStateProps = {
 };
 
 export function LoadingState({
-  label = "Loading...",
+  label,
   fullScreen = false,
   className,
 }: LoadingStateProps) {
+  const t = useTranslations();
+  const resolvedLabel = label ?? t("status.loading");
+
   return (
     <div
       className={cn(
@@ -22,7 +28,7 @@ export function LoadingState({
       )}
     >
       <Loader2 className="size-4 animate-spin" />
-      <span>{label}</span>
+      <span>{resolvedLabel}</span>
     </div>
   );
 }

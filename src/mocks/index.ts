@@ -1,7 +1,9 @@
+import { IS_MOCK_MODE } from "@/lib/api/config";
+
 let started = false;
 
 export async function startMocking(): Promise<void> {
-  if (started || process.env.NEXT_PUBLIC_API_MODE === "live") {
+  if (started || !IS_MOCK_MODE) {
     return;
   }
 

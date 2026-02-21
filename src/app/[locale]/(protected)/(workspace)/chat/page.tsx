@@ -1,0 +1,107 @@
+"use client";
+
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+
+import { ChatEmptyState } from "@/app/[locale]/(protected)/(workspace)/chat/components/chat-empty-state";
+import { ModelSelector } from "@/app/[locale]/(protected)/(workspace)/chat/components/model-selector";
+import { ErrorState } from "@/components/shared/error-state";
+import { PageHeader } from "@/components/shared/page-header";
+import { LoadingState } from "@/components/shared/loading-state";
+import { Button } from "@/components/ui/button";
+import { useConversationsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-conversations-query";
+import { useCreateConversationMutation } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-chat-mutations";
+import { useModelsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-models-query";
+import { usePreferencesQuery } from "@/app/[locale]/(protected)/(workspace)/settings/hooks/use-preferences-query";
+import { Link, useRouter } from "@/i18n/navigation";
+import { routes } from "@/lib/routes";
+
+export default function ChatHomePage() {
+  const t = useTranslations();
+  const router = useRouter();
+  const modelsQuery = useModelsQuery();
+  const conversationsQuery = useConversationsQuery();
+  const preferencesQuery = usePreferencesQuery();
+  const createConversationMutation = useCreateConversationMutation();
+
+  const [selectedModelOverride, setSelectedModelOverride] = useState<string | null>(null);
+  const selectedModelId =
+    selectedModelOverride ??
+    preferencesQuery.data?.defaultModelId ??
+    modelsQuery.data?.[0]?.id ??
+    "";
+
+  const startConversation = async () => {
+    if (!selectedModelId) {
+      return;
+    }
+    const conversation = await createConversationMutation.mutateAsync({
+      modelId: selectedModelId,
+    });
+    router.push(routes.workspace.conversation(conversation.id));
+  };
+
+  return (
+    <div className="space-y-6">
+      <PageHeader
+        title={t("pages.chat.title")}
+        description={t("pages.chat.description")}
+        actions={
+          <ModelSelector
+            models={modelsQuery.data ?? []}
+            value={selectedModelId}
+            onChange={setSelectedModelOverride}
+            disabled={modelsQuery.isLoading}
+          />
+        }
+      />
+
+      {modelsQuery.isLoading ? <LoadingState label={t("status.loadingModels")} /> : null}
+      {modelsQuery.isError ? (
+        <ErrorState
+          title={t("errors.chat.failedLoadModelsTitle")}
+          description={t("errors.chat.failedLoadModelsDescription")}
+          onRetry={() => void modelsQuery.refetch()}
+        />
+      ) : null}
+
+      {!modelsQuery.isLoading && !modelsQuery.isError ? (
+        <ChatEmptyState
+          onStart={() => void startConversation()}
+          disabled={createConversationMutation.isPending || !selectedModelId}
+        />
+      ) : null}
+
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
+          {t("pages.chat.recentChats")}
+        </h2>
+        {conversationsQuery.isLoading ? (
+          <LoadingState label={t("status.loadingConversations")} />
+        ) : conversationsQuery.data?.length ? (
+          <div className="grid gap-2 md:grid-cols-2">
+            {conversationsQuery.data.slice(0, 6).map((conversation) => (
+              <Button
+                key={conversation.id}
+                asChild
+                variant="outline"
+                className="h-auto justify-start p-3 text-left"
+              >
+                <Link href={routes.workspace.conversation(conversation.id)}>
+                  <div>
+                    <p className="font-medium">{conversation.title}</p>
+                    <p className="text-xs text-muted-foreground">{conversation.preview}</p>
+                  </div>
+                </Link>
+              </Button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">{t("pages.chat.noConversationsYet")}</p>
+        )}
+      </section>
+    </div>
+  );
+}
+
+

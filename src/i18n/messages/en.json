@@ -1,0 +1,365 @@
+{
+  "common": {
+    "appName": "Navid AI",
+    "brandName": "Navid",
+    "workspaceTagline": "Conversational workspace",
+    "email": "Email",
+    "password": "Password",
+    "code": "Code",
+    "fullName": "Full name",
+    "birthDate": "Birth date",
+    "displayName": "Display name",
+    "theme": "Theme",
+    "defaultModel": "Default model",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "account": "Account",
+    "noEmail": "No email",
+    "nameExample": "name@example.com",
+    "birthDatePlaceholder": "MM/DD/YYYY",
+    "modelLabel": "Model: {modelId}",
+    "copyright": "Navid © 2015-2026"
+  },
+  "actions": {
+    "continue": "Continue",
+    "continueWithEmail": "Continue with email",
+    "continueWithGoogle": "Continue with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "createAccount": "Create account",
+    "createAnAccount": "Create an account",
+    "sendResetEmail": "Send reset email",
+    "sendAnotherEmail": "Send another email",
+    "resendEmail": "Resend email",
+    "updatePassword": "Update password",
+    "requestNewResetLink": "Request new reset link",
+    "requestAnother": "Request another",
+    "backToLogin": "Back to login",
+    "saveChanges": "Save changes",
+    "savePreferences": "Save preferences",
+    "next": "Next",
+    "skip": "Skip",
+    "change": "Change",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "tryAgain": "Try again",
+    "retry": "Retry",
+    "newChat": "New chat",
+    "selectModel": "Select model",
+    "startChatting": "Start chatting",
+    "send": "Send",
+    "stop": "Stop",
+    "regenerate": "Regenerate",
+    "attachFiles": "Attach files",
+    "edit": "Edit",
+    "saveAndRegenerate": "Save and regenerate",
+    "goHome": "Go home",
+    "goToChat": "Go to chat",
+    "openConversationSidebar": "Open conversation sidebar",
+    "toggleSidebar": "Toggle sidebar",
+    "togglePasswordVisibility": "Toggle password visibility",
+    "openNavigationMenu": "Open navigation menu",
+    "close": "Close",
+    "tryNavid": "Try Navid",
+    "tryNavid21": "Try Navid 2.1",
+    "tryNow": "Try now",
+    "manageCookies": "Manage cookies"
+  },
+  "status": {
+    "loading": "Loading...",
+    "checkingSession": "Checking session...",
+    "redirecting": "Redirecting...",
+    "preparingWorkspace": "Preparing workspace...",
+    "checkingAccess": "Checking access...",
+    "redirectingToOnboarding": "Redirecting to onboarding...",
+    "loadingWorkspace": "Loading workspace...",
+    "redirectingToSignIn": "Redirecting to sign in...",
+    "loadingModels": "Loading models...",
+    "loadingConversations": "Loading conversations...",
+    "loadingConversation": "Loading conversation...",
+    "loadingHelpArticles": "Loading help articles...",
+    "loadingProfile": "Loading profile...",
+    "loadingPreferences": "Loading preferences...",
+    "checkingOnboardingStatus": "Checking onboarding status...",
+    "saving": "Saving...",
+    "profileUpdated": "Profile updated.",
+    "preferencesSaved": "Preferences saved.",
+    "assistantTyping": "Assistant is typing...",
+    "uploading": "Uploading",
+    "failed": "Failed",
+    "ready": "Ready",
+    "queued": "Queued",
+    "starting": "Getting started.",
+    "generatingImage": "Creating image. May take a moment."
+  },
+  "auth": {
+    "orContinueWith": "Or continue with",
+    "alreadyHaveAccount": "Already have an account?",
+    "newHere": "New here?",
+    "rememberedPassword": "Remembered your password?",
+    "needFreshLink": "Need a fresh link?",
+    "termsPasswordStep": "By continuing, you agree to the Terms of Service and Privacy Policy.",
+    "termsAgeStep": "By clicking \"Continue\", you agree to our Terms and have read our Privacy Policy.",
+    "aside": {
+      "eyebrow": "Navid AI Workspace",
+      "title": "Build and iterate with AI conversations that stay organized.",
+      "description": "A fast workspace for prompts, files, and model-driven responses with secure session handling built in.",
+      "feature1": "Structured chat history and model switching",
+      "feature2": "Streaming answers with edit and regenerate flow",
+      "feature3": "Protected routes with onboarding-aware redirects"
+    },
+    "login": {
+      "titleEmail": "Welcome back",
+      "titlePassword": "Enter your password",
+      "descriptionEmail": "Sign in to continue your conversations.",
+      "descriptionPassword": "Signing in as {email}.",
+      "forgotPassword": "Forgot password?"
+    },
+    "signup": {
+      "titleEmail": "Create your account",
+      "titlePassword": "Set your password",
+      "titleCode": "Check your inbox",
+      "titleAge": "Let's confirm your age",
+      "descriptionEmail": "Start with your email address.",
+      "descriptionPassword": "Create a secure password for {email}.",
+      "descriptionCode": "Enter the {codeLength}-digit verification code we sent to {email}.",
+      "descriptionAge": "This helps us personalize your experience and keep Navid AI safe."
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "description": "Enter your email to receive reset instructions.",
+      "sentMessage": "We sent a reset link to {email}."
+    },
+    "resetPassword": {
+      "title": "Set a new password",
+      "description": "Choose a strong password you have not used before.",
+      "invalidLinkTitle": "Invalid reset link",
+      "invalidLinkDescription": "This link is missing a reset token. Request a new one."
+    },
+    "validation": {
+      "validEmail": "Enter a valid email.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "fullNameRequired": "Please enter your full name.",
+      "birthDateFormat": "Enter your birth date as MM/DD/YYYY.",
+      "birthDateValid": "Enter a valid birth date.",
+      "mustBeAdult": "You must be at least 18 years old to use Navid AI.",
+      "passwordsMustMatch": "Passwords must match.",
+      "displayNameMin": "Please enter at least 2 characters.",
+      "verificationCodeDigits": "Enter the {count}-digit verification code."
+    },
+    "toasts": {
+      "passwordResetInstructionsSent": "Password reset instructions sent.",
+      "passwordUpdated": "Password updated. Sign in with your new password.",
+      "newCodeSent": "A new code was sent to {email}.",
+      "onboardingComplete": "Onboarding complete."
+    }
+  },
+  "errors": {
+    "generic": {
+      "rootTitle": "Something failed unexpectedly",
+      "rootDescription": "Try reloading this view. If the issue persists, check logs and API health.",
+      "sectionTitle": "Something went wrong",
+      "sectionDescription": "We hit an unexpected issue while loading this section."
+    },
+    "auth": {
+      "failedSignIn": "Failed to sign in.",
+      "failedSignUp": "Failed to sign up.",
+      "failedVerifyCode": "Failed to verify code.",
+      "failedResendCode": "Failed to resend code.",
+      "signupSessionExpired": "Signup session expired. Please start again.",
+      "sessionExpiredRegisterAgain": "Session expired. Please register again.",
+      "failedContinue": "Failed to continue. Please try again.",
+      "failedSendResetEmail": "Failed to send reset email.",
+      "failedResetPassword": "Could not reset password."
+    },
+    "chat": {
+      "waitForUploads": "Please wait until uploads finish.",
+      "failedSendMessage": "Failed to send message.",
+      "failedEditMessage": "Failed to edit message.",
+      "failedRegenerateResponse": "Could not regenerate response.",
+      "failedDeleteConversation": "Failed to delete conversation.",
+      "unavailableTitle": "Conversation unavailable",
+      "unavailableDescription": "Try refreshing this page or return to chat home.",
+      "failedLoadModelsTitle": "Could not load models",
+      "failedLoadModelsDescription": "Refresh and try again.",
+      "failedLoadHelpTitle": "Could not load help content",
+      "failedLoadHelpDescription": "Try refreshing this page."
+    },
+    "settings": {
+      "failedLoadProfileTitle": "Failed to load profile",
+      "failedLoadProfileDescription": "Refresh this page and try again.",
+      "failedLoadPreferencesTitle": "Failed to load preferences",
+      "failedLoadPreferencesDescription": "Refresh and try again."
+    },
+    "onboarding": {
+      "failedComplete": "Failed to complete onboarding."
+    },
+    "attachments": {
+      "maxPerMessage": "Maximum {count} attachments per message.",
+      "maxFileSize": "Each file must be less than {sizeMb}MB.",
+      "unsupportedType": "Unsupported file type. Use images, PDF, or text documents.",
+      "uploadFailed": "Failed to upload \"{fileName}\"."
+    },
+    "workspace": {
+      "title": "Workspace error",
+      "description": "We could not complete this action in the chat workspace. Retry to recover."
+    }
+  },
+  "navigation": {
+    "chat": "Chat",
+    "settings": "Settings",
+    "help": "Help",
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "language": "Language",
+    "english": "English",
+    "persian": "فارسی",
+    "navigation": "Navigation",
+    "conversationsAndShortcuts": "Conversations and account shortcuts.",
+    "apiPlatform": "API Platform",
+    "sagittariEngine": "Sagittari Engine",
+    "research": "Research",
+    "news": "News",
+    "pricing": "Pricing",
+    "career": "Career"
+  },
+  "pages": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you requested does not exist or may have been moved."
+    },
+    "chat": {
+      "title": "Chat workspace",
+      "description": "Create a new conversation or continue from recent history.",
+      "recentChats": "Recent chats",
+      "noConversationsYet": "No conversations yet.",
+      "emptyTitle": "Start your first conversation",
+      "emptyDescription": "Choose a model and send a message. You can upload images or documents to provide context.",
+      "noConversationsPanel": "No conversations yet. Start one to begin chatting.",
+      "noMessagesYet": "No messages yet",
+      "composerPlaceholder": "Type your message...",
+      "editMessage": "Edit message",
+      "deleteConversationTitle": "Delete conversation?",
+      "deleteConversationDescription": "This action cannot be undone.",
+      "userRole": "User",
+      "assistantRole": "Assistant"
+    },
+    "help": {
+      "title": "Help center",
+      "description": "Browse onboarding guidance, prompt patterns, and troubleshooting notes.",
+      "searchPlaceholder": "Search help articles...",
+      "empty": "No matching help articles found."
+    },
+    "settings": {
+      "profileTitle": "Profile",
+      "profileDescription": "Manage your account identity and display preferences.",
+      "profileCardTitle": "Account profile",
+      "profileCardDescription": "Your email is managed by your authentication provider.",
+      "preferencesTitle": "Preferences",
+      "preferencesDescription": "Configure app theme and your default conversation model.",
+      "preferencesCardTitle": "Workspace defaults",
+      "preferencesCardDescription": "These settings apply to new chats.",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System"
+    },
+    "onboarding": {
+      "intentTitle": "What brings you to Navid?",
+      "intentDescription": "We'll use this information to suggest ideas you might find useful.",
+      "goalsTitle": "What do you want to do with Navid?",
+      "goalsDescription": "Pick one or more options so we can tailor your first suggestions.",
+      "tourLine1": "Nice to meet you.",
+      "tourLine2": "Here's a quick tour...",
+      "intents": {
+        "school": "School",
+        "work": "Work",
+        "personal": "Personal tasks",
+        "fun": "Fun and entertainment",
+        "other": "Other"
+      },
+      "goals": {
+        "create": "Create something",
+        "trip": "Plan a trip",
+        "brainstorm": "Brainstorm",
+        "plan": "Plan something",
+        "search": "Search",
+        "write": "Write or edit",
+        "learn": "Learn & study",
+        "organize": "Get organized",
+        "help": "Get step-by-step help",
+        "shop": "Shop smarter",
+        "health": "Stay healthy",
+        "money": "Manage money",
+        "code": "Code or debug",
+        "data": "Analyze data",
+        "growth": "Grow professionally"
+      }
+    },
+    "landing": {
+      "launchBadge": "Navid 1.0 - Public Launch Coming Soon",
+      "heroTitle": "AI That Truly Understands You",
+      "heroDescription": "Navid is a next-generation language model built for speed, deep reasoning, and precise results across coding, analysis, writing, and problem-solving.",
+      "promptInputLabel": "Prompt input",
+      "sendPromptLabel": "Send prompt",
+      "prompts": {
+        "p1": "Ask anything...",
+        "p2": "Translate this text into English",
+        "p3": "Write a formal email for me",
+        "p4": "Summarize this text",
+        "p5": "Create a study plan for the entrance exam",
+        "p6": "Write an Instagram caption",
+        "p7": "Explain this code to me",
+        "p8": "Suggest a business idea",
+        "p9": "Rewrite my resume professionally",
+        "p10": "Plan a 5-day trip"
+      },
+      "intelligence": {
+        "eyebrow": "Meet Navid",
+        "title": "Navid is an intelligent system designed to handle complex tasks, generate visuals, and respond with deep personalization while adapting to your needs with a remarkably human touch.",
+        "description": "Whether you're crafting ideas, solving challenges, or simply exploring, Navid understands your context."
+      },
+      "standout": {
+        "eyebrow": "Why Navid Stands Out",
+        "title": "Smarter responses. Stunning visuals. Always adaptive.",
+        "description": "Navid provides powerful, personalized support that feels intuitive and responsive.",
+        "cards": {
+          "complexityTitle": "Handles Complexity with Ease",
+          "complexityDescription": "Navid understands layers of context, nuance, and intent so you can move through hard problems with clarity and speed.",
+          "visualsTitle": "Generates Visuals Instantly",
+          "visualsDescription": "From abstract ideas to polished outputs, Navid turns your prompts into compelling visuals ready to share and iterate.",
+          "personalizedTitle": "Personalized Just for You",
+          "personalizedDescription": "Responses adapt to your style, goals, and domain context so every interaction feels natural, precise, and useful."
+        }
+      },
+      "imageGeneration": {
+        "eyebrow": "Text-to-Image Generation",
+        "title": "Describe it, and watch your imagination come to life with stunning detail.",
+        "description": "Navid understands even complex visual prompts and transforms abstract, surreal, or hyper-specific ideas into production-ready image outputs.",
+        "step1Alt": "A towering stone monolith in a dramatic mountain valley",
+        "step1Prompt": "A towering, majestic stone monolith that rises high into the sky. The structure exudes an air of mysticism with intricate carvings and ancient markings.",
+        "step2Alt": "A futuristic city with glowing structures at dusk",
+        "step2Prompt": "A futuristic skyline at dusk with luminous architecture, reflective canals, and cinematic atmospheric fog across the horizon.",
+        "step3Alt": "A surreal desert scene with advanced sci-fi machinery",
+        "step3Prompt": "A surreal desert with colossal sci-fi machinery buried in sand, dramatic lighting, and ultra-detailed textures in a wide cinematic composition."
+      },
+      "engine": {
+        "eyebrow": "Inside Navid Engines",
+        "title": "Unleashing the Power of Navid Intelligence Stack",
+        "metricTitle": "Faster Response Time and Generative Accuracy",
+        "card1Title": "Sagittari Core",
+        "card1Description": "Enhance image generation throughput up to 40% with optimized inference routing.",
+        "card2Title": "Navid Deep Research",
+        "card2Description": "Handle deep research tasks with richer context synthesis and faster retrieval.",
+        "card3Title": "Collaboration With Google Deep Learning",
+        "card3Description": "Built on modern model techniques for reliable reasoning and responsive output.",
+        "rightTitle": "Faster than ever before, delivering results in seconds",
+        "rightDescription": "With improved efficiency and responsiveness, every interaction feels natural and instantaneous, making it easier to achieve your goals quickly and effortlessly.",
+        "workflows": "Production-ready workflows"
+      },
+      "cta": {
+        "title": "Do More With Navid"
+      }
+    }
+  }
+}

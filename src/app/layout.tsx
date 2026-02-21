@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { hasLocale } from "next-intl";
+import localFont from "next/font/local";
 
-import { AppProviders } from "@/components/providers/app-providers";
+import { isRtlLanguage, routing } from "@/i18n/routing";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -15,12 +17,39 @@ const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
+const danaFont = localFont({
+  variable: "--font-dana",
+  src: [
+    {
+      path: "../../public/fonts/DanaFont/DanaFaNum-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/DanaFont/DanaFaNum-Medium.woff",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/DanaFont/DanaFaNum-DemiBold.woff",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/DanaFont/DanaFaNum-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Navid AI",
     template: "%s | Navid AI",
   },
-  description: "ChatGPT-like conversational workspace with multimodal messaging.",
+  description: "Navid AI workspace.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -33,15 +62,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+function resolveLocale(locale: string | null | undefined): string {
+  if (locale && hasLocale(routing.locales, locale)) {
+    return locale;
+  }
+
+  return routing.defaultLocale;
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale?: string }>;
 }>) {
+  const { locale: requestedLocale } = await params;
+  const locale = resolveLocale(requestedLocale);
+  const dir = isRtlLanguage(locale) ? "rtl" : "ltr";
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable} antialiased`}>
-        <AppProviders>{children}</AppProviders>
+    <html
+      lang={locale}
+      dir={dir}
+      className={`${spaceGrotesk.variable} ${ibmPlexMono.variable} ${danaFont.variable}`}
+      suppressHydrationWarning
+    >
+      <body data-dir={dir} className="antialiased">
+        {children}
       </body>
     </html>
   );

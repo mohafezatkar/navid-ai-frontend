@@ -22,6 +22,4 @@ export const updatePreferencesInputSchema = z.object({
 });
 
 export type Profile = z.infer<typeof profileSchema>;
-export type UpdateProfileInput = z.infer<typeof updateProfileInputSchema>;
 export type Preferences = z.infer<typeof preferencesSchema>;
-export type UpdatePreferencesInput = z.infer<typeof updatePreferencesInputSchema>;
