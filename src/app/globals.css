@@ -61,10 +61,10 @@
 :root {
   color-scheme: dark;
 
-  --background: oklch(0.14 0.02 252);
+  --background: oklch(0.2768 0 89.88);
   --foreground: oklch(0.96 0.01 255);
 
-  --card: oklch(0.19 0.025 250);
+  --card: oklch(0.3562 0 89.88);
   --card-foreground: var(--foreground);
 
   --popover: oklch(0.19 0.025 250);
@@ -95,7 +95,7 @@
   --chart-4: oklch(0.78 0.11 190);
   --chart-5: oklch(0.63 0.09 330);
 
-  --sidebar: oklch(0.16 0.02 252);
+  --sidebar: oklch(0.1913 0 89.88);
   --sidebar-foreground: var(--foreground);
 
   --sidebar-primary: var(--accent);
@@ -107,11 +107,12 @@
   --sidebar-border: oklch(0.3 0.02 248 / 0.6);
   --sidebar-ring: var(--ring);
 
-  --font-sans-base:
-    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-ltr-base:
+    var(--font-sf-pro-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans-base: var(--font-ltr-base);
   --font-serif-base: ui-serif, serif;
   --font-mono-base: var(--font-ibm-plex-mono), ui-monospace, monospace;
-  --font-rtl-base: var(--font-dana), var(--font-sans-base);
+  --font-rtl-base: var(--font-dana), var(--font-ltr-base);
 
   --radius: 0.75rem;
   --spacing: 0.25rem;
@@ -139,10 +140,10 @@
 .dark {
   color-scheme: dark;
 
-  --background: oklch(0.11 0.018 252);
+  --background: oklch(0.2768 0 89.88);
   --foreground: oklch(0.97 0.008 255);
 
-  --card: oklch(0.16 0.022 250);
+  --card: oklch(0.3562 0 89.88);
   --card-foreground: var(--foreground);
 
   --popover: oklch(0.16 0.022 250);
@@ -173,7 +174,7 @@
   --chart-4: oklch(0.8 0.11 190);
   --chart-5: oklch(0.64 0.1 330);
 
-  --sidebar: oklch(0.14 0.02 252);
+  --sidebar: oklch(0.1913 0 89.88);
   --sidebar-foreground: var(--foreground);
 
   --sidebar-primary: var(--accent);
@@ -215,8 +216,18 @@
       var(--background);
     color: var(--foreground);
   }
+  body[data-dir="ltr"] {
+    font-family: var(--font-ltr-base);
+  }
   body[data-dir="rtl"] {
     font-family: var(--font-rtl-base);
+  }
+  html[dir="ltr"] body,
+  html[dir="ltr"] input,
+  html[dir="ltr"] textarea,
+  html[dir="ltr"] select,
+  html[dir="ltr"] button {
+    font-family: var(--font-ltr-base);
   }
   html[dir="rtl"],
   html[dir="rtl"] body {

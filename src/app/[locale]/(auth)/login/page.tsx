@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -36,7 +35,6 @@ type LoginStep = "email" | "password";
 export default function LoginPage() {
   const t = useTranslations();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [step, setStep] = useState<LoginStep>("email");
   const loginMutation = useLoginMutation();
   const loginSchema = z.object({
@@ -68,13 +66,9 @@ export default function LoginPage() {
 
   const onSubmit = async (values: LoginValues) => {
     try {
-      const session = await loginMutation.mutateAsync(values);
-      const next = searchParams.get("next");
-      if (session.onboardingComplete) {
-        router.replace(next && next.startsWith("/") ? next : routes.workspace.chat);
-      } else {
-        router.replace(routes.workspace.onboarding);
-      }
+      await loginMutation.mutateAsync(values);
+      // TODO: Respect onboarding completion (and optional `next`) once onboarding checks are re-enabled.
+      router.replace(routes.workspace.chat);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t("errors.auth.failedSignIn"));
     }
@@ -157,15 +151,25 @@ export default function LoginPage() {
           </>
         ) : (
           <>
-            <div className="flex items-center justify-between rounded-md border border-border/60 bg-muted/30 px-3 py-2">
-              <div className="min-w-0">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground">{t("common.email")}</p>
-                <p className="truncate text-sm font-medium">{emailText}</p>
-              </div>
+            <div className="relative">
+              <Input
+                id="login-email-readonly"
+                readOnly
+                value={emailText}
+                autoComplete="email"
+                className="h-11 rounded-md border-border/70 bg-background pb-1 pt-5 pr-16 text-sm shadow-none"
+              />
+              <label
+                htmlFor="login-email-readonly"
+                className="pointer-events-none absolute left-3 top-1.5 text-xs text-muted-foreground"
+              >
+                {t("common.email")}
+              </label>
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
+                className="absolute right-1 top-1/2 h-7 -translate-y-1/2 px-2 text-xs"
                 disabled={loginMutation.isPending}
                 onClick={() => setStep("email")}
               >

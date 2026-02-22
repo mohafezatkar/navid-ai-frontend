@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 function initialsFromName(name: string | null | undefined): string {
   if (!name) {
@@ -32,7 +33,11 @@ function initialsFromName(name: string | null | undefined): string {
     .toUpperCase();
 }
 
-export function UserMenu() {
+type UserMenuProps = {
+  compact?: boolean;
+};
+
+export function UserMenu({ compact = false }: UserMenuProps) {
   const t = useTranslations();
   const router = useRouter();
   const { setTheme } = useTheme();
@@ -42,11 +47,22 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="w-full justify-start gap-2 px-2">
-          <Avatar className="size-7">
+        <Button
+          variant="ghost"
+          className={cn(
+            compact
+              ? "size-9 justify-center rounded-full p-0"
+              : "w-full justify-start gap-2 px-2",
+          )}
+        >
+          <Avatar className={compact ? "size-8" : "size-7"}>
             <AvatarFallback>{initialsFromName(session?.name)}</AvatarFallback>
           </Avatar>
-          <span className="truncate text-sm">{session?.name ?? t("common.account")}</span>
+          {!compact ? (
+            <span className="truncate text-sm">{session?.name ?? t("common.account")}</span>
+          ) : (
+            <span className="sr-only">{session?.name ?? t("common.account")}</span>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">

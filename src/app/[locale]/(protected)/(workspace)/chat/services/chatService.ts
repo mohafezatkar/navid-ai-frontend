@@ -2,7 +2,6 @@
   Attachment,
   Conversation,
   Message,
-  Model,
   StreamEvent,
 } from "@/lib/api/types";
 import { IS_MOCK_MODE, toApiPath } from "@/lib/api/config";
@@ -12,7 +11,6 @@ import {
   attachmentSchema,
   conversationSchema,
   messageSchema,
-  modelSchema,
 } from "@/lib/contracts";
 
 const STREAM_DELAY_MS = 28;
@@ -58,10 +56,9 @@ export async function listConversations(): Promise<Conversation[]> {
   return data.map((conversation) => conversationSchema.parse(conversation));
 }
 
-export async function createConversation(input: { modelId: string }): Promise<Conversation> {
+export async function createConversation(): Promise<Conversation> {
   const data = await fetchJson<Conversation>("/chat/conversations", {
     method: "POST",
-    body: JSON.stringify(input),
   });
   return conversationSchema.parse(data);
 }
@@ -168,9 +165,4 @@ export async function uploadAttachment(file: File): Promise<Attachment> {
   }
 
   return attachmentSchema.parse(response.data);
-}
-
-export async function listModels(): Promise<Model[]> {
-  const data = await fetchJson<Model[]>("/chat/models");
-  return data.map((model) => modelSchema.parse(model));
 }

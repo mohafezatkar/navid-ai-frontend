@@ -1,107 +1,110 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { ChatEmptyState } from "@/app/[locale]/(protected)/(workspace)/chat/components/chat-empty-state";
-import { ModelSelector } from "@/app/[locale]/(protected)/(workspace)/chat/components/model-selector";
-import { ErrorState } from "@/components/shared/error-state";
-import { PageHeader } from "@/components/shared/page-header";
-import { LoadingState } from "@/components/shared/loading-state";
-import { Button } from "@/components/ui/button";
-import { useConversationsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-conversations-query";
+import { useSessionQuery } from "@/app/[locale]/(auth)/hooks/use-session-query";
+import { ChatInput } from "@/app/[locale]/(protected)/(workspace)/chat/components/chat-input";
 import { useCreateConversationMutation } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-chat-mutations";
-import { useModelsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-models-query";
-import { usePreferencesQuery } from "@/app/[locale]/(protected)/(workspace)/settings/hooks/use-preferences-query";
-import { Link, useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
+import { useDraftStore } from "@/stores/draft-store";
+
+function resolveShortName(name: string | null | undefined, email: string | undefined): string {
+  if (name && name.trim().length > 0) {
+    return name.trim().split(/\s+/)[0] ?? "there";
+  }
+
+  if (email && email.trim().length > 0) {
+    return email.trim().split("@")[0] ?? "there";
+  }
+
+  return "there";
+}
+
+function resolveHeading(template: string, shortName: string): string {
+  return template
+    .replaceAll("[User Shortname]", shortName)
+    .replaceAll("{shortName}", shortName);
+}
 
 export default function ChatHomePage() {
   const t = useTranslations();
   const router = useRouter();
-  const modelsQuery = useModelsQuery();
-  const conversationsQuery = useConversationsQuery();
-  const preferencesQuery = usePreferencesQuery();
+  const sessionQuery = useSessionQuery();
   const createConversationMutation = useCreateConversationMutation();
+  const setDraft = useDraftStore((state) => state.setDraft);
 
-  const [selectedModelOverride, setSelectedModelOverride] = useState<string | null>(null);
-  const selectedModelId =
-    selectedModelOverride ??
-    preferencesQuery.data?.defaultModelId ??
-    modelsQuery.data?.[0]?.id ??
-    "";
+  const shortName = useMemo(
+    () => resolveShortName(sessionQuery.data?.name, sessionQuery.data?.email),
+    [sessionQuery.data?.email, sessionQuery.data?.name],
+  );
 
-  const startConversation = async () => {
-    if (!selectedModelId) {
-      return;
+  const headingTemplates = useMemo(() => {
+    const rawHeadingValue = t.raw("pages.chat.homeHeading");
+
+    if (Array.isArray(rawHeadingValue)) {
+      return rawHeadingValue.filter((item): item is string => typeof item === "string");
     }
-    const conversation = await createConversationMutation.mutateAsync({
-      modelId: selectedModelId,
-    });
+
+    if (typeof rawHeadingValue === "string") {
+      return [rawHeadingValue];
+    }
+
+    return [];
+  }, [t]);
+
+  const pickRandomHeading = useCallback(() => {
+    const fallbackHeading = t("pages.chat.title");
+
+    if (headingTemplates.length === 0) {
+      return fallbackHeading;
+    }
+
+    const randomIndex = Math.floor(Math.random() * headingTemplates.length);
+    const randomTemplate = headingTemplates[randomIndex] ?? fallbackHeading;
+    return resolveHeading(randomTemplate, shortName);
+  }, [headingTemplates, shortName, t]);
+
+  const [homeHeading, setHomeHeading] = useState(() => t("pages.chat.title"));
+
+  useEffect(() => {
+    setHomeHeading(pickRandomHeading());
+  }, [pickRandomHeading]);
+
+  useEffect(() => {
+    const handleNewChatClicked = () => {
+      setHomeHeading(pickRandomHeading());
+    };
+
+    window.addEventListener("chat:new-chat-clicked", handleNewChatClicked);
+    return () => {
+      window.removeEventListener("chat:new-chat-clicked", handleNewChatClicked);
+    };
+  }, [pickRandomHeading]);
+
+  const handleSubmit = async (message: string) => {
+    const conversation = await createConversationMutation.mutateAsync();
+    setDraft(conversation.id, message);
     router.push(routes.workspace.conversation(conversation.id));
   };
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title={t("pages.chat.title")}
-        description={t("pages.chat.description")}
-        actions={
-          <ModelSelector
-            models={modelsQuery.data ?? []}
-            value={selectedModelId}
-            onChange={setSelectedModelOverride}
-            disabled={modelsQuery.isLoading}
-          />
-        }
-      />
-
-      {modelsQuery.isLoading ? <LoadingState label={t("status.loadingModels")} /> : null}
-      {modelsQuery.isError ? (
-        <ErrorState
-          title={t("errors.chat.failedLoadModelsTitle")}
-          description={t("errors.chat.failedLoadModelsDescription")}
-          onRetry={() => void modelsQuery.refetch()}
+    <div className="flex min-h-[calc(100vh-120px)] flex-col">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-4 pb-16">
+        <h1 className="mb-8 text-center text-3xl font-normal tracking-tight text-foreground">
+          {homeHeading}
+        </h1>
+        <ChatInput
+          className="w-full p-2"
+          placeholder={t("pages.chat.homeInputPlaceholder")}
+          onSubmit={handleSubmit}
+          disabled={createConversationMutation.isPending}
+          showAttach={false}
+          showTools={false}
+          showVoice={false}
         />
-      ) : null}
-
-      {!modelsQuery.isLoading && !modelsQuery.isError ? (
-        <ChatEmptyState
-          onStart={() => void startConversation()}
-          disabled={createConversationMutation.isPending || !selectedModelId}
-        />
-      ) : null}
-
-      <section className="space-y-3">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          {t("pages.chat.recentChats")}
-        </h2>
-        {conversationsQuery.isLoading ? (
-          <LoadingState label={t("status.loadingConversations")} />
-        ) : conversationsQuery.data?.length ? (
-          <div className="grid gap-2 md:grid-cols-2">
-            {conversationsQuery.data.slice(0, 6).map((conversation) => (
-              <Button
-                key={conversation.id}
-                asChild
-                variant="outline"
-                className="h-auto justify-start p-3 text-left"
-              >
-                <Link href={routes.workspace.conversation(conversation.id)}>
-                  <div>
-                    <p className="font-medium">{conversation.title}</p>
-                    <p className="text-xs text-muted-foreground">{conversation.preview}</p>
-                  </div>
-                </Link>
-              </Button>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm text-muted-foreground">{t("pages.chat.noConversationsYet")}</p>
-        )}
-      </section>
+      </div>
     </div>
   );
 }
-
-

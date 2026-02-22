@@ -15,8 +15,8 @@ import type {
 export type {
   Attachment,
   Conversation,
-  Model,
   Message,
+  Model,
   Preferences,
   Profile,
   Session,
@@ -73,7 +73,6 @@ export interface ApiClient {
     regenerateLastAssistantMessage(input: { conversationId: string }): Promise<void>;
     deleteConversation(id: string): Promise<void>;
     uploadAttachment(file: File): Promise<Attachment>;
-    listModels(): Promise<Model[]>;
   };
   settings: {
     getProfile(): Promise<Profile>;

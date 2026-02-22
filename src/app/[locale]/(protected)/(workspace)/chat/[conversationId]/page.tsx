@@ -172,7 +172,6 @@ export default function ConversationPage() {
     <div className="flex h-full min-h-[calc(100vh-120px)] flex-col gap-5">
       <PageHeader
         title={conversation.title}
-        description={t("common.modelLabel", { modelId: conversation.modelId })}
         actions={
           <>
             <StreamControls

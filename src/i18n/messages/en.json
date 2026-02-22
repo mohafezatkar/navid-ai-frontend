@@ -10,14 +10,12 @@
     "birthDate": "Birth date",
     "displayName": "Display name",
     "theme": "Theme",
-    "defaultModel": "Default model",
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
     "account": "Account",
     "noEmail": "No email",
     "nameExample": "name@example.com",
     "birthDatePlaceholder": "MM/DD/YYYY",
-    "modelLabel": "Model: {modelId}",
     "copyright": "Navid © 2015-2026"
   },
   "actions": {
@@ -46,7 +44,6 @@
     "tryAgain": "Try again",
     "retry": "Retry",
     "newChat": "New chat",
-    "selectModel": "Select model",
     "startChatting": "Start chatting",
     "send": "Send",
     "stop": "Stop",
@@ -75,7 +72,6 @@
     "redirectingToOnboarding": "Redirecting to onboarding...",
     "loadingWorkspace": "Loading workspace...",
     "redirectingToSignIn": "Redirecting to sign in...",
-    "loadingModels": "Loading models...",
     "loadingConversations": "Loading conversations...",
     "loadingConversation": "Loading conversation...",
     "loadingHelpArticles": "Loading help articles...",
@@ -181,8 +177,6 @@
       "failedDeleteConversation": "Failed to delete conversation.",
       "unavailableTitle": "Conversation unavailable",
       "unavailableDescription": "Try refreshing this page or return to chat home.",
-      "failedLoadModelsTitle": "Could not load models",
-      "failedLoadModelsDescription": "Refresh and try again.",
       "failedLoadHelpTitle": "Could not load help content",
       "failedLoadHelpDescription": "Try refreshing this page."
     },
@@ -237,6 +231,17 @@
       "emptyTitle": "Start your first conversation",
       "emptyDescription": "Choose a model and send a message. You can upload images or documents to provide context.",
       "noConversationsPanel": "No conversations yet. Start one to begin chatting.",
+      "homeHeading": [
+        "Where should we begin?",
+        "What's on the agenda today?",
+        "How can I help, [User Shortname]?",
+        "What are you working on?",
+        "Good to see you, [User Shortname].",
+        "Hey, [User Shortname]. Ready to dive in?",
+        "Ready when you are.",
+        "What's on your mind today?"
+      ],
+      "homeInputPlaceholder": "Ask anything",
       "noMessagesYet": "No messages yet",
       "composerPlaceholder": "Type your message...",
       "editMessage": "Edit message",
@@ -257,7 +262,7 @@
       "profileCardTitle": "Account profile",
       "profileCardDescription": "Your email is managed by your authentication provider.",
       "preferencesTitle": "Preferences",
-      "preferencesDescription": "Configure app theme and your default conversation model.",
+      "preferencesDescription": "Configure your app theme.",
       "preferencesCardTitle": "Workspace defaults",
       "preferencesCardDescription": "These settings apply to new chats.",
       "themeLight": "Light",
@@ -271,6 +276,43 @@
       "goalsDescription": "Pick one or more options so we can tailor your first suggestions.",
       "tourLine1": "Nice to meet you.",
       "tourLine2": "Here's a quick tour...",
+      "quickTour": {
+        "backAria": "Go to previous tour step",
+        "progress": "Step {current} of {total}",
+        "skipTour": "Skip tour",
+        "readyTitle": "You're all set",
+        "readyDescription": "Navid can make mistakes. Review important details before acting on responses.",
+        "readyLegal": "By continuing, you agree to our Terms and have read our Privacy Policy.",
+        "steps": {
+          "ask": {
+            "title": "Ask anything",
+            "description": "From quick questions to big ideas, Navid is here to help.",
+            "prompt": "Suggest weeknight dinner ideas that are trendy and quick",
+            "responseHeading": "Here are three fast options you can try tonight:",
+            "point1": "One-pan baked feta pasta with cherry tomatoes and basil.",
+            "point2": "Sheet-pan lemon garlic salmon with mixed vegetables.",
+            "point3": "Spicy chickpea tacos with avocado and lime."
+          },
+          "picture": {
+            "title": "Picture this",
+            "description": "Describe an idea and watch it come to life, or edit a photo with one phrase.",
+            "prompt": "Turn this photo into a 3D cartoon",
+            "responseHeading": "Image created",
+            "thumbnailAlt": "Uploaded reference photo",
+            "generatedAlt": "Generated cartoon-style image"
+          },
+          "uploads": {
+            "title": "Easy uploads",
+            "description": "Get instant summaries or analysis by uploading images and documents.",
+            "fileName": "Residential Lease Agreement.pdf",
+            "prompt": "What does my lease say about quiet hours?",
+            "responseHeading": "Answer based on your file",
+            "answer": "Your lease says quiet hours are from 10:00 PM to 8:00 AM daily, and repeated violations can count as a material breach.",
+            "citationsLabel": "Citations",
+            "citation": "Residential Lease Agreement.pdf"
+          }
+        }
+      },
       "intents": {
         "school": "School",
         "work": "Work",

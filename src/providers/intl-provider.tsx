@@ -7,6 +7,8 @@ import {
   type AbstractIntlMessages,
 } from "next-intl";
 
+import { DEFAULT_TIME_ZONE } from "@/i18n/config";
+
 type IntlProviderProps = {
   locale: string;
   messages: AbstractIntlMessages;
@@ -22,6 +24,7 @@ export function IntlProvider({
     <NextIntlClientProvider
       locale={locale}
       messages={messages}
+      timeZone={DEFAULT_TIME_ZONE}
       onError={(error) => {
         if (error.code === IntlErrorCode.MISSING_MESSAGE) {
           return;

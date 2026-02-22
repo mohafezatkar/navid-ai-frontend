@@ -50,7 +50,7 @@ export function LaunchCtaSection() {
 
             <motion.div className="mt-8 flex flex-wrap items-center justify-center" variants={itemVariants}>
               <Button asChild variant="secondary" size="lg">
-                <Link href={routes.auth.register}>{t("actions.tryNavid21")}</Link>
+                <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
               </Button>
             </motion.div>
           </motion.div>

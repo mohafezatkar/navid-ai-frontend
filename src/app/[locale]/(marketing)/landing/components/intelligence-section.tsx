@@ -49,7 +49,7 @@ export function IntelligenceSection() {
           </motion.p>
           <motion.div variants={itemVariants}>
             <Button asChild variant="default">
-              <Link href={routes.auth.register}>{t("actions.tryNavid")}</Link>
+              <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
             </Button>
           </motion.div>
         </motion.div>

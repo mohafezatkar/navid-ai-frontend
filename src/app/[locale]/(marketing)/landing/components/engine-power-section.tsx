@@ -116,7 +116,7 @@ export function EnginePowerSection() {
           </motion.p>
           <motion.div className="flex items-center gap-3 pt-2" variants={itemVariants}>
             <Button asChild variant="secondary" size="lg">
-              <Link href={routes.auth.register}>{t("actions.tryNavid21")}</Link>
+              <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
             </Button>
             <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
               <Sparkles className="size-4" />

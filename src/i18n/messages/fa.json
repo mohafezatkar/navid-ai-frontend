@@ -10,14 +10,12 @@
     "birthDate": "تاریخ تولد",
     "displayName": "نام نمایشی",
     "theme": "پوسته",
-    "defaultModel": "مدل پیش‌فرض",
     "newPassword": "رمز عبور جدید",
     "confirmPassword": "تایید رمز عبور",
     "account": "حساب کاربری",
     "noEmail": "ایمیلی ثبت نشده",
     "nameExample": "name@example.com",
     "birthDatePlaceholder": "MM/DD/YYYY",
-    "modelLabel": "مدل: {modelId}",
     "copyright": "نوید © 2015-2026"
   },
   "actions": {
@@ -46,7 +44,6 @@
     "tryAgain": "تلاش دوباره",
     "retry": "تلاش مجدد",
     "newChat": "گفت‌وگوی جدید",
-    "selectModel": "انتخاب مدل",
     "startChatting": "شروع گفت‌وگو",
     "send": "ارسال",
     "stop": "توقف",
@@ -61,9 +58,9 @@
     "togglePasswordVisibility": "نمایش یا پنهان‌سازی رمز عبور",
     "openNavigationMenu": "باز کردن منوی ناوبری",
     "close": "بستن",
-    "tryNavid": "امتحان نوید",
+    "tryNavid": "شروع کنید",
     "tryNavid21": "امتحان نوید 2.1",
-    "tryNow": "همین حالا امتحان کنید",
+    "tryNow": "همین حالا تجربه کن",
     "manageCookies": "مدیریت کوکی‌ها"
   },
   "status": {
@@ -75,7 +72,6 @@
     "redirectingToOnboarding": "در حال انتقال به شروع کار...",
     "loadingWorkspace": "در حال بارگذاری محیط کار...",
     "redirectingToSignIn": "در حال انتقال به صفحه ورود...",
-    "loadingModels": "در حال بارگذاری مدل‌ها...",
     "loadingConversations": "در حال بارگذاری گفت‌وگوها...",
     "loadingConversation": "در حال بارگذاری گفت‌وگو...",
     "loadingHelpArticles": "در حال بارگذاری مقاله‌های راهنما...",
@@ -181,8 +177,6 @@
       "failedDeleteConversation": "حذف گفت‌وگو ناموفق بود.",
       "unavailableTitle": "گفت‌وگو در دسترس نیست",
       "unavailableDescription": "صفحه را نوسازی کنید یا به صفحه اصلی گفت‌وگو برگردید.",
-      "failedLoadModelsTitle": "بارگذاری مدل‌ها انجام نشد",
-      "failedLoadModelsDescription": "صفحه را نوسازی کرده و دوباره تلاش کنید.",
       "failedLoadHelpTitle": "بارگذاری محتوای راهنما انجام نشد",
       "failedLoadHelpDescription": "لطفا صفحه را دوباره بارگذاری کنید."
     },
@@ -237,6 +231,17 @@
       "emptyTitle": "اولین گفت‌وگوی خود را شروع کنید",
       "emptyDescription": "یک مدل انتخاب کنید و پیام بفرستید. می‌توانید برای ارائه زمینه تصویر یا سند بارگذاری کنید.",
       "noConversationsPanel": "هنوز گفت‌وگویی وجود ندارد. برای شروع یک گفت‌وگو بسازید.",
+      "homeHeading": [
+        "از کجا شروع کنیم؟",
+        "امروز برنامه چیست؟",
+        "چطور می توانم کمک کنم، [User Shortname]؟",
+        "الان روی چه چیزی کار می کنی؟",
+        "خوشحالم می بینمت، [User Shortname].",
+        "سلام [User Shortname]، آماده ای شروع کنیم؟",
+        "هر وقت آماده ای، من هم آماده ام.",
+        "امروز به چه چیزی فکر می کنی؟"
+      ],
+      "homeInputPlaceholder": "هر چیزی بپرس",
       "noMessagesYet": "هنوز پیامی وجود ندارد",
       "composerPlaceholder": "پیام خود را بنویسید...",
       "editMessage": "ویرایش پیام",
@@ -257,7 +262,7 @@
       "profileCardTitle": "پروفایل حساب",
       "profileCardDescription": "ایمیل شما توسط ارائه‌دهنده احراز هویت مدیریت می‌شود.",
       "preferencesTitle": "ترجیحات",
-      "preferencesDescription": "پوسته برنامه و مدل پیش‌فرض گفت‌وگو را تنظیم کنید.",
+      "preferencesDescription": "پوسته برنامه را تنظیم کنید.",
       "preferencesCardTitle": "پیش‌فرض‌های محیط کار",
       "preferencesCardDescription": "این تنظیمات روی گفت‌وگوهای جدید اعمال می‌شوند.",
       "themeLight": "روشن",
@@ -271,6 +276,43 @@
       "goalsDescription": "یک یا چند گزینه را انتخاب کنید تا پیشنهادهای اولیه را برای شما شخصی‌سازی کنیم.",
       "tourLine1": "از آشنایی با شما خوشحالیم.",
       "tourLine2": "این هم یک معرفی کوتاه...",
+      "quickTour": {
+        "backAria": "رفتن به مرحله قبلی تور",
+        "progress": "مرحله {current} از {total}",
+        "skipTour": "رد کردن تور",
+        "readyTitle": "همه چیز آماده است",
+        "readyDescription": "نوید ممکن است اشتباه کند. قبل از اقدام، جزئیات مهم را بررسی کنید.",
+        "readyLegal": "با ادامه دادن، با قوانین ما موافقت می‌کنید و سیاست حریم خصوصی را خوانده‌اید.",
+        "steps": {
+          "ask": {
+            "title": "هر چیزی بپرس",
+            "description": "از سوال‌های سریع تا ایده‌های بزرگ، نوید آماده کمک است.",
+            "prompt": "برای یک شام سریع وسط هفته، چند ایده ترند پیشنهاد بده",
+            "responseHeading": "سه گزینه سریع برای امشب:",
+            "point1": "پاستای فتای یک‌تابه با گوجه گیلاسی و ریحان.",
+            "point2": "سالمون لیمویی-سیر در سینی فر با سبزیجات.",
+            "point3": "تاکوی نخود تند با آووکادو و لیمو."
+          },
+          "picture": {
+            "title": "تصورش کن",
+            "description": "یک ایده را توصیف کن و ببین جان می‌گیرد، یا با یک جمله عکس را ویرایش کن.",
+            "prompt": "این عکس را به یک کارتون سه‌بعدی تبدیل کن",
+            "responseHeading": "تصویر ساخته شد",
+            "thumbnailAlt": "عکس مرجع بارگذاری‌شده",
+            "generatedAlt": "تصویر کارتونی تولیدشده"
+          },
+          "uploads": {
+            "title": "آپلود آسان",
+            "description": "با بارگذاری تصویر یا سند، خلاصه یا تحلیل فوری بگیر.",
+            "fileName": "Residential Lease Agreement.pdf",
+            "prompt": "در قرارداد من درباره ساعات سکوت چه نوشته شده؟",
+            "responseHeading": "پاسخ بر اساس فایل شما",
+            "answer": "طبق قرارداد، ساعات سکوت هر روز از 10 شب تا 8 صبح است و تکرار تخلف می‌تواند نقض اساسی قرارداد محسوب شود.",
+            "citationsLabel": "ارجاعات",
+            "citation": "Residential Lease Agreement.pdf"
+          }
+        }
+      },
       "intents": {
         "school": "درس و دانشگاه",
         "work": "کار",

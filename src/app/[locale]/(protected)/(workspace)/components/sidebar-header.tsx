@@ -16,19 +16,13 @@ export function SidebarHeader({ collapsed = false }: SidebarHeaderProps) {
     <Link
       href={routes.workspace.chat}
       className={cn(
-        "flex items-center gap-2 rounded-xl border border-border/70 bg-card/80 px-3 py-2",
-        collapsed && "justify-center px-2",
+        "flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-accent/35",
+        collapsed && "w-full",
       )}
     >
-      <div className="rounded-lg bg-primary/15 p-1.5 text-primary">
+      <div className="rounded-md bg-foreground/10 p-1.5 text-foreground">
         <Sparkles className="size-4" />
       </div>
-      {!collapsed ? (
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold tracking-tight">{t("common.appName")}</p>
-          <p className="truncate text-[11px] text-muted-foreground">{t("common.workspaceTagline")}</p>
-        </div>
-      ) : null}
     </Link>
   );
 }

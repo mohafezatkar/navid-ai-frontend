@@ -3,7 +3,6 @@ export const queryKeys = {
     session: () => ["auth", "session"] as const,
   },
   chat: {
-    models: () => ["chat", "models"] as const,
     conversations: () => ["chat", "conversations"] as const,
     conversation: (conversationId: string) =>
       ["chat", "conversations", conversationId] as const,

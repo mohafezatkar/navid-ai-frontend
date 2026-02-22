@@ -139,7 +139,7 @@ export function LandingHeader({ children }: LandingHeaderProps) {
                   size="lg"
                   className="hidden text-md font-semibold md:inline-flex"
                 >
-                  <Link href={routes.auth.register}>{t("actions.tryNavid")}</Link>
+                  <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
                 </Button>
               </motion.div>
               <motion.div variants={navItemVariants} className="hidden md:block">
@@ -188,7 +188,7 @@ export function LandingHeader({ children }: LandingHeaderProps) {
                         <motion.div variants={createRevealItemVariants(prefersReducedMotion, { y: 10, delay: 0.24, duration: 0.5 })}>
                           <LanguageSwitcher className="mb-3" />
                           <Button asChild variant="default" size="lg" className="mt-2 font-semibold">
-                            <Link href={routes.auth.register}>{t("actions.tryNavid")}</Link>
+                            <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
                           </Button>
                         </motion.div>
                       </motion.div>

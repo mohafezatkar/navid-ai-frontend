@@ -20,30 +20,27 @@ export function ConversationList({
 
   if (conversations.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border/80 p-3 text-sm text-muted-foreground">
+      <div className="px-3 py-2 text-sm text-muted-foreground">
         {t("pages.chat.noConversationsPanel")}
       </div>
     );
   }
 
   return (
-    <ul className="space-y-1">
+    <ul className="space-y-0.5">
       {conversations.map((conversation) => (
         <li key={conversation.id}>
           <button
             type="button"
             onClick={() => onSelectConversation(conversation.id)}
             className={cn(
-              "w-full rounded-lg border px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-accent/60",
+              "w-full rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-accent/35",
               conversation.id === activeConversationId
-                ? "border-primary/70 bg-primary/10"
-                : "border-transparent",
+                ? "bg-accent/45 text-foreground"
+                : "text-foreground/90",
             )}
           >
-            <p className="truncate text-sm font-medium">{conversation.title}</p>
-            <p className="truncate text-xs text-muted-foreground">
-              {conversation.preview || t("pages.chat.noMessagesYet")}
-            </p>
+            <p className="truncate">{conversation.title}</p>
           </button>
         </li>
       ))}

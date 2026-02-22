@@ -1,14 +1,36 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import { hasLocale } from "next-intl";
 import localFont from "next/font/local";
 
 import { isRtlLanguage, routing } from "@/i18n/routing";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
+const sfProDisplayFont = localFont({
+  variable: "--font-sf-pro-display",
+  src: [
+    {
+      path: "../../public/fonts/SFProDisplay/SFProDisplay-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SFProDisplay/SFProDisplay-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SFProDisplay/SFProDisplay-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SFProDisplay/SFProDisplay-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -85,7 +107,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${spaceGrotesk.variable} ${ibmPlexMono.variable} ${danaFont.variable}`}
+      className={`${sfProDisplayFont.variable} ${ibmPlexMono.variable} ${danaFont.variable}`}
       suppressHydrationWarning
     >
       <body data-dir={dir} className="antialiased">

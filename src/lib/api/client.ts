@@ -17,7 +17,6 @@ import {
   editUserMessage,
   getConversation,
   listConversations,
-  listModels,
   regenerateLastAssistantMessage,
   sendMessage,
   stopStream,
@@ -54,7 +53,6 @@ export const apiClient: ApiClient = {
     regenerateLastAssistantMessage,
     deleteConversation,
     uploadAttachment,
-    listModels,
   },
   settings: {
     getProfile,

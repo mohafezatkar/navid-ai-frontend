@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Plus } from "lucide-react";
+import { Menu, SquarePen } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { ConversationList } from "@/app/[locale]/(protected)/(workspace)/components/conversation-list";
@@ -11,36 +11,27 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useConversationsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-conversations-query";
 import { useCreateConversationMutation } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-chat-mutations";
-import { useModelsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-models-query";
 import { isRtlLanguage } from "@/i18n/routing";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 export function MobileNavSheet() {
   const t = useTranslations();
   const locale = useLocale();
   const isRtl = isRtlLanguage(locale);
+  const pathname = usePathname();
   const router = useRouter();
   const conversationsQuery = useConversationsQuery();
-  const modelsQuery = useModelsQuery();
   const createConversationMutation = useCreateConversationMutation();
 
   const createConversation = async () => {
-    const fallbackModelId = modelsQuery.data?.[0]?.id;
-    if (!fallbackModelId) {
-      return;
-    }
-
-    const conversation = await createConversationMutation.mutateAsync({
-      modelId: fallbackModelId,
-    });
+    window.dispatchEvent(new CustomEvent("chat:new-chat-clicked"));
+    const conversation = await createConversationMutation.mutateAsync();
     router.push(routes.workspace.conversation(conversation.id));
   };
 
@@ -52,32 +43,46 @@ export function MobileNavSheet() {
           <span className="sr-only">{t("actions.openConversationSidebar")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side={isRtl ? "right" : "left"} className="w-80 p-0">
-        <SheetHeader className="px-4 py-3">
-          <SheetTitle>{t("navigation.navigation")}</SheetTitle>
-          <SheetDescription>{t("navigation.conversationsAndShortcuts")}</SheetDescription>
-        </SheetHeader>
-        <div className="space-y-3 border-t border-border/70 px-4 py-4">
+      <SheetContent side={isRtl ? "right" : "left"} className="w-80 bg-sidebar p-0">
+        <div className="space-y-2 px-3 py-3">
           <SidebarHeader />
-          <nav className="grid gap-1 rounded-lg border border-border/70 bg-card/50 p-2">
-            <Button asChild size="sm" variant="ghost" className="justify-start">
-              <Link href={routes.workspace.chat}>{t("navigation.chat")}</Link>
+          <nav className="grid gap-0.5 px-1">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="h-9 justify-start rounded-md px-2.5 font-normal"
+              onClick={() => void createConversation()}
+            >
+              <SquarePen className="size-4" />
+              {t("actions.newChat")}
             </Button>
-            <Button asChild size="sm" variant="ghost" className="justify-start">
+            <Button
+              asChild
+              size="sm"
+              variant="ghost"
+              className={cn(
+                "h-9 justify-start rounded-md px-2.5 font-normal",
+                pathname.startsWith(routes.workspace.settings.root) &&
+                  "bg-accent/40 text-foreground",
+              )}
+            >
               <Link href={routes.workspace.settings.preferences}>{t("navigation.settings")}</Link>
             </Button>
-            <Button asChild size="sm" variant="ghost" className="justify-start">
+            <Button
+              asChild
+              size="sm"
+              variant="ghost"
+              className={cn(
+                "h-9 justify-start rounded-md px-2.5 font-normal",
+                pathname.startsWith(routes.workspace.help) && "bg-accent/40 text-foreground",
+              )}
+            >
               <Link href={routes.workspace.help}>{t("navigation.help")}</Link>
             </Button>
           </nav>
-          <Button
-            className="w-full justify-start gap-2"
-            onClick={() => void createConversation()}
-            disabled={createConversationMutation.isPending || modelsQuery.isLoading}
-          >
-            <Plus className="size-4" />
-            {t("actions.newChat")}
-          </Button>
+          <p className="px-3 pt-1 text-xs font-medium text-muted-foreground">
+            {t("pages.chat.recentChats")}
+          </p>
           <ScrollArea className="h-[50vh]">
             <ConversationList
               conversations={conversationsQuery.data ?? []}
@@ -86,7 +91,7 @@ export function MobileNavSheet() {
               }
             />
           </ScrollArea>
-          <div className="border-t border-border/70 pt-3">
+          <div className="border-t border-border/50 px-1 pt-2">
             <UserMenu />
           </div>
         </div>

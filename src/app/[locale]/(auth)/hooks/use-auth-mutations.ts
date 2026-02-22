@@ -72,7 +72,6 @@ export function useLogoutMutation() {
     mutationFn: logout,
     onSuccess: async () => {
       queryClient.removeQueries({ queryKey: queryKeys.chat.conversations() });
-      queryClient.removeQueries({ queryKey: queryKeys.chat.models() });
       queryClient.removeQueries({ queryKey: queryKeys.settings.profile() });
       queryClient.removeQueries({ queryKey: queryKeys.settings.preferences() });
       await queryClient.invalidateQueries({

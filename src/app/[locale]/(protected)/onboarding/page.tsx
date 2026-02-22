@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ComponentType } from "react";
+import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
@@ -9,6 +10,8 @@ import {
   BookOpen,
   BriefcaseBusiness,
   CalendarCheck,
+  Check,
+  ChevronLeft,
   CircleEllipsis,
   Code2,
   GraduationCap,
@@ -28,8 +31,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { LoadingState } from "@/components/shared/loading-state";
 import { useSessionQuery } from "@/app/[locale]/(auth)/hooks/use-session-query";
-import { useModelsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-models-query";
-import { useUpdatePreferencesMutation } from "@/app/[locale]/(protected)/(workspace)/settings/hooks/use-preferences-query";
+import {
+  usePreferencesQuery,
+  useUpdatePreferencesMutation,
+} from "@/app/[locale]/(protected)/(workspace)/settings/hooks/use-preferences-query";
 import { useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -52,15 +57,38 @@ type OnboardingGoal =
   | "code"
   | "data"
   | "growth";
+type TourPreviewKind = "ask" | "picture" | "uploads";
 
 const STEP_TRANSITION_SECONDS = 0.24;
-const TOUR_TIMINGS = {
+const TOUR_INTRO_TIMINGS = {
   firstSentenceDelaySeconds: 0.5,
   firstSentenceDurationSeconds: 1,
   secondSentenceDelaySeconds: 1.5,
   secondSentenceDurationSeconds: 1,
-  autoFinishDelayMs: 4200,
+  autoAdvanceDelayMs: 3200,
 };
+const TOUR_FEATURE_STEPS: Array<{
+  key: TourPreviewKind;
+  titleKey: string;
+  descriptionKey: string;
+}> = [
+  {
+    key: "ask",
+    titleKey: "pages.onboarding.quickTour.steps.ask.title",
+    descriptionKey: "pages.onboarding.quickTour.steps.ask.description",
+  },
+  {
+    key: "picture",
+    titleKey: "pages.onboarding.quickTour.steps.picture.title",
+    descriptionKey: "pages.onboarding.quickTour.steps.picture.description",
+  },
+  {
+    key: "uploads",
+    titleKey: "pages.onboarding.quickTour.steps.uploads.title",
+    descriptionKey: "pages.onboarding.quickTour.steps.uploads.description",
+  },
+];
+const TOUR_TOTAL_STEPS = TOUR_FEATURE_STEPS.length + 1;
 
 const INTENT_OPTIONS: Array<{
   value: OnboardingIntent;
@@ -101,15 +129,28 @@ export default function OnboardingPage() {
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
   const { data: session, isLoading: isSessionLoading } = useSessionQuery();
-  const modelsQuery = useModelsQuery();
+  const preferencesQuery = usePreferencesQuery();
   const updatePreferencesMutation = useUpdatePreferencesMutation();
 
   const [step, setStep] = useState<OnboardingStep>("intent");
   const [intent, setIntent] = useState<OnboardingIntent | null>(null);
   const [goals, setGoals] = useState<OnboardingGoal[]>([]);
-  const hasScheduledFinalizationRef = useRef(false);
+  const [tourStepIndex, setTourStepIndex] = useState(-1);
 
-  const defaultModelId = modelsQuery.data?.[0]?.id ?? "";
+  const defaultModelId = preferencesQuery.data?.defaultModelId ?? "";
+  const canFinalizeOnboarding =
+    !preferencesQuery.isLoading &&
+    Boolean(defaultModelId) &&
+    !updatePreferencesMutation.isPending;
+  const isTourIntroStep = tourStepIndex < 0;
+  const isTourReadyStep = tourStepIndex === TOUR_TOTAL_STEPS - 1;
+  const currentTourStep =
+    TOUR_FEATURE_STEPS[
+      Math.min(
+        Math.max(tourStepIndex, 0),
+        TOUR_FEATURE_STEPS.length - 1,
+      )
+    ];
 
   useEffect(() => {
     if (session?.onboardingComplete) {
@@ -134,33 +175,6 @@ export default function OnboardingPage() {
     }
   }, [defaultModelId, router, t, updatePreferencesMutation]);
 
-  useEffect(() => {
-    if (step !== "tour") {
-      hasScheduledFinalizationRef.current = false;
-      return;
-    }
-
-    if (
-      hasScheduledFinalizationRef.current ||
-      modelsQuery.isLoading ||
-      !defaultModelId
-    ) {
-      return;
-    }
-
-    hasScheduledFinalizationRef.current = true;
-    const timeoutId = window.setTimeout(
-      () => {
-        void finalizeOnboarding();
-      },
-      prefersReducedMotion ? 260 : TOUR_TIMINGS.autoFinishDelayMs,
-    );
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [defaultModelId, finalizeOnboarding, modelsQuery.isLoading, prefersReducedMotion, step]);
-
   const toggleGoal = (goal: OnboardingGoal) => {
     setGoals((currentGoals) => {
       if (currentGoals.includes(goal)) {
@@ -170,6 +184,120 @@ export default function OnboardingPage() {
     });
   };
 
+  useEffect(() => {
+    if (step !== "tour" || !isTourIntroStep) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(
+      () => setTourStepIndex(0),
+      prefersReducedMotion ? 260 : TOUR_INTRO_TIMINGS.autoAdvanceDelayMs,
+    );
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [isTourIntroStep, prefersReducedMotion, step]);
+
+  const startTour = () => {
+    setTourStepIndex(-1);
+    setStep("tour");
+  };
+
+  const goToNextTourStep = () => {
+    setTourStepIndex((currentStep) => Math.min(currentStep + 1, TOUR_TOTAL_STEPS - 1));
+  };
+
+  const goToPreviousTourStep = () => {
+    setTourStepIndex((currentStep) => Math.max(currentStep - 1, -1));
+  };
+
+  const renderTourPreview = (previewKind: TourPreviewKind) => {
+    if (previewKind === "ask") {
+      return (
+        <div className="space-y-5">
+          <div className="flex justify-end">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-sm text-white/95">
+              {t("pages.onboarding.quickTour.steps.ask.prompt")}
+            </span>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
+            <p className="text-sm text-white/70">
+              {t("pages.onboarding.quickTour.steps.ask.responseHeading")}
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-white/85">
+              <li>{t("pages.onboarding.quickTour.steps.ask.point1")}</li>
+              <li>{t("pages.onboarding.quickTour.steps.ask.point2")}</li>
+              <li>{t("pages.onboarding.quickTour.steps.ask.point3")}</li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    if (previewKind === "picture") {
+      return (
+        <div className="space-y-5">
+          <div className="flex items-start justify-end gap-3">
+            <Image
+              src="/image-generation/2.png"
+              alt={t("pages.onboarding.quickTour.steps.picture.thumbnailAlt")}
+              width={56}
+              height={56}
+              className="size-14 rounded-xl border border-white/15 object-cover"
+            />
+            <span className="rounded-full bg-white/10 px-4 py-2 text-sm text-white/95">
+              {t("pages.onboarding.quickTour.steps.picture.prompt")}
+            </span>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
+            <p className="mb-3 text-sm font-medium text-white/85">
+              {t("pages.onboarding.quickTour.steps.picture.responseHeading")}
+            </p>
+            <Image
+              src="/image-generation/3.png"
+              alt={t("pages.onboarding.quickTour.steps.picture.generatedAlt")}
+              width={720}
+              height={840}
+              className="h-auto w-full rounded-2xl border border-white/10 object-cover"
+            />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-5">
+        <div className="flex flex-col items-end gap-3">
+          <div className="rounded-xl border border-white/20 bg-white/5 px-3 py-2 text-xs">
+            <p className="font-semibold text-white">
+              {t("pages.onboarding.quickTour.steps.uploads.fileName")}
+            </p>
+          </div>
+          <span className="rounded-full bg-white/10 px-4 py-2 text-sm text-white/95">
+            {t("pages.onboarding.quickTour.steps.uploads.prompt")}
+          </span>
+        </div>
+        <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
+          <p className="text-sm font-medium text-white/85">
+            {t("pages.onboarding.quickTour.steps.uploads.responseHeading")}
+          </p>
+          <p className="mt-3 text-sm leading-7 text-white/80">
+            {t("pages.onboarding.quickTour.steps.uploads.answer")}
+          </p>
+          <div className="mt-5 border-t border-white/10 pt-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/55">
+              {t("pages.onboarding.quickTour.steps.uploads.citationsLabel")}
+            </p>
+            <p className="mt-2 text-sm font-semibold text-white">
+              {t("pages.onboarding.quickTour.steps.uploads.citation")}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   if (isSessionLoading) {
     return <LoadingState label={t("status.checkingOnboardingStatus")} fullScreen />;
   }
@@ -177,7 +305,7 @@ export default function OnboardingPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-6 py-10">
-        <div className="w-full max-w-md">
+        <div className={cn("w-full", step === "tour" && !isTourIntroStep ? "max-w-6xl" : "max-w-md")}>
           <AnimatePresence mode="wait" initial={false}>
             {step === "intent" ? (
               <motion.section
@@ -294,7 +422,7 @@ export default function OnboardingPage() {
                   <Button
                     type="button"
                     className="h-11 w-full bg-foreground text-background hover:bg-foreground/90"
-                    onClick={() => setStep("tour")}
+                    onClick={startTour}
                   >
                     {t("actions.continue")}
                   </Button>
@@ -302,7 +430,7 @@ export default function OnboardingPage() {
                     type="button"
                     variant="ghost"
                     className="h-11 w-full"
-                    onClick={() => setStep("tour")}
+                    onClick={startTour}
                   >
                     {t("actions.skip")}
                   </Button>
@@ -318,38 +446,122 @@ export default function OnboardingPage() {
                   duration: prefersReducedMotion ? 0.14 : STEP_TRANSITION_SECONDS,
                   ease: "easeOut",
                 }}
-                className="flex min-h-[320px] items-center justify-center"
+                className={cn(
+                  isTourIntroStep
+                    ? "flex min-h-[320px] items-center justify-center"
+                    : "relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#151821] text-white shadow-[0_24px_90px_rgba(0,0,0,0.45)]",
+                )}
               >
-                <div className="space-y-1 text-center">
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{
-                      duration: prefersReducedMotion
-                        ? 0.12
-                        : TOUR_TIMINGS.firstSentenceDurationSeconds,
-                      delay: prefersReducedMotion ? 0 : TOUR_TIMINGS.firstSentenceDelaySeconds,
-                      ease: "easeOut",
-                    }}
-                    className="text-5xl font-semibold tracking-tight"
+                {!isTourIntroStep && !isTourReadyStep ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    className="absolute left-5 top-5 z-10 rounded-full text-white/70 hover:bg-white/10 hover:text-white"
+                    onClick={goToPreviousTourStep}
+                    aria-label={t("pages.onboarding.quickTour.backAria")}
                   >
-                    {t("pages.onboarding.tourLine1")}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{
-                      duration: prefersReducedMotion
-                        ? 0.12
-                        : TOUR_TIMINGS.secondSentenceDurationSeconds,
-                      delay: prefersReducedMotion ? 0 : TOUR_TIMINGS.secondSentenceDelaySeconds,
-                      ease: "easeOut",
-                    }}
-                    className="text-5xl font-semibold tracking-tight text-muted-foreground"
-                  >
-                    {t("pages.onboarding.tourLine2")}
-                  </motion.p>
-                </div>
+                    <ChevronLeft className="size-4" />
+                  </Button>
+                ) : null}
+
+                {isTourIntroStep ? (
+                  <div className="space-y-1 text-center">
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: prefersReducedMotion
+                          ? 0.12
+                          : TOUR_INTRO_TIMINGS.firstSentenceDurationSeconds,
+                        delay: prefersReducedMotion ? 0 : TOUR_INTRO_TIMINGS.firstSentenceDelaySeconds,
+                        ease: "easeOut",
+                      }}
+                      className="text-5xl font-semibold tracking-tight"
+                    >
+                      {t("pages.onboarding.tourLine1")}
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: prefersReducedMotion
+                          ? 0.12
+                          : TOUR_INTRO_TIMINGS.secondSentenceDurationSeconds,
+                        delay: prefersReducedMotion ? 0 : TOUR_INTRO_TIMINGS.secondSentenceDelaySeconds,
+                        ease: "easeOut",
+                      }}
+                      className="text-5xl font-semibold tracking-tight text-muted-foreground"
+                    >
+                      {t("pages.onboarding.tourLine2")}
+                    </motion.p>
+                  </div>
+                ) : isTourReadyStep ? (
+                  <div className="flex min-h-[560px] flex-col items-center justify-center px-8 text-center sm:px-12">
+                    <div className="mb-6 rounded-full bg-white p-2 text-zinc-900">
+                      <Check className="size-5" />
+                    </div>
+                    <h2 className="text-5xl font-semibold tracking-tight">
+                      {t("pages.onboarding.quickTour.readyTitle")}
+                    </h2>
+                    <p className="mt-8 max-w-md text-base leading-8 text-white/80">
+                      {t("pages.onboarding.quickTour.readyDescription")}
+                    </p>
+                    <Button
+                      type="button"
+                      className="mt-8 h-11 w-full max-w-xs rounded-full bg-white text-zinc-900 hover:bg-white/90"
+                      onClick={() => void finalizeOnboarding()}
+                      disabled={!canFinalizeOnboarding}
+                    >
+                      {updatePreferencesMutation.isPending
+                        ? t("status.saving")
+                        : t("actions.continue")}
+                    </Button>
+                    <p className="mt-5 max-w-md text-sm leading-7 text-white/65">
+                      {t("pages.onboarding.quickTour.readyLegal")}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid min-h-[560px] gap-8 p-6 md:grid-cols-[320px_minmax(0,1fr)] md:items-center md:px-10 md:py-10">
+                    <div className="mx-auto w-full max-w-sm space-y-5 text-center md:text-left">
+                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/55">
+                        {t("pages.onboarding.quickTour.progress", {
+                          current: tourStepIndex + 1,
+                          total: TOUR_TOTAL_STEPS,
+                        })}
+                      </p>
+                      <h2 className="text-5xl font-semibold tracking-tight">
+                        {t(currentTourStep.titleKey)}
+                      </h2>
+                      <p className="text-base leading-8 text-white/80">
+                        {t(currentTourStep.descriptionKey)}
+                      </p>
+                      <div className="space-y-3 pt-1">
+                        <Button
+                          type="button"
+                          className="h-11 w-full rounded-full bg-white text-zinc-900 hover:bg-white/90"
+                          onClick={goToNextTourStep}
+                        >
+                          {t("actions.next")}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="h-11 w-full rounded-full text-white/80 hover:bg-white/10 hover:text-white"
+                          onClick={() => void finalizeOnboarding()}
+                          disabled={!canFinalizeOnboarding}
+                        >
+                          {updatePreferencesMutation.isPending
+                            ? t("status.saving")
+                            : t("pages.onboarding.quickTour.skipTour")}
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="rounded-[1.75rem] border border-white/10 bg-black/25 p-4 shadow-[0_0_80px_rgba(255,255,255,0.08)] md:p-6">
+                      {renderTourPreview(currentTourStep.key)}
+                    </div>
+                  </div>
+                )}
               </motion.section>
             )}
           </AnimatePresence>

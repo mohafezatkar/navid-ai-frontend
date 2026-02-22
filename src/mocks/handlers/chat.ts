@@ -13,15 +13,6 @@ import { asMockErrorResponse } from "@/mocks/handlers/utils";
 const apiPath = (path: string) => `${API_PREFIX}${path}`;
 
 export const chatHandlers = [
-  http.get(apiPath("/chat/models"), async () => {
-    try {
-      await delay(150);
-      return HttpResponse.json(mockDb.chat.listModels());
-    } catch (error) {
-      return asMockErrorResponse(error);
-    }
-  }),
-
   http.get(apiPath("/chat/conversations"), async () => {
     try {
       await delay(180);

@@ -23,9 +23,8 @@ export function PublicOnlyGuard({ children }: PublicOnlyGuardProps) {
       return;
     }
 
-    const destination = session.onboardingComplete
-      ? routes.workspace.chat
-      : routes.workspace.onboarding;
+    // TODO: Route users with incomplete onboarding back to routes.workspace.onboarding once onboarding is re-enabled.
+    const destination = routes.workspace.chat;
     if (pathname !== destination) {
       router.replace(destination);
     }

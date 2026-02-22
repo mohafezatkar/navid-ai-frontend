@@ -1,6 +1,7 @@
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 
+import { DEFAULT_TIME_ZONE } from "@/i18n/config";
 import { routing } from "@/i18n/routing";
 
 const messageLoaders = {
@@ -19,5 +20,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages,
+    timeZone: DEFAULT_TIME_ZONE,
   };
 });

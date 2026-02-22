@@ -70,12 +70,12 @@ export function LandingFooter() {
               transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex h-1/2 items-center justify-center gap-4 px-4 md:gap-6 md:px-8">
-                <span className="select-none whitespace-nowrap text-[clamp(4.2rem,16vw,14rem)] font-semibold leading-[0.82] tracking-tight text-foreground/95">
-                  NAVID
+                <span className="select-none whitespace-nowrap text-[clamp(4rem,15.4vw,13.4rem)] font-semibold leading-[0.82] tracking-tight text-foreground/95">
+                  {t("common.appName")}
                 </span>
               </div>
               <div className="flex h-1/2 items-center justify-center gap-4 px-4 md:gap-6 md:px-8">
-                <span className="select-none whitespace-nowrap text-[clamp(4.2rem,16vw,14rem)] font-semibold leading-[0.82] tracking-tight text-foreground">
+                <span className="select-none whitespace-nowrap text-[clamp(3.85rem,15vw,13rem)] font-semibold leading-[0.82] tracking-tight text-foreground">
                   {t("actions.tryNow")}
                 </span>
                 <ArrowRight

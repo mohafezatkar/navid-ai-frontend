@@ -273,9 +273,8 @@ export default function SignupPage() {
         birthDate: formatBirthDateForApi(parsedDate),
       });
       queryClient.setQueryData(queryKeys.auth.session(), session);
-      router.replace(
-        session.onboardingComplete ? routes.workspace.chat : routes.workspace.onboarding,
-      );
+      // TODO: Restore onboarding-based redirect once onboarding checks are re-enabled.
+      router.replace(routes.workspace.chat);
     } catch (error) {
       toast.error(
         error instanceof Error

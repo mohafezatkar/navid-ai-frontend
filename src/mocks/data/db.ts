@@ -276,10 +276,6 @@ export const mockDb = {
     },
   },
   chat: {
-    listModels(): Model[] {
-      requireCurrentUser();
-      return db.models;
-    },
     listConversations(): Conversation[] {
       const user = requireCurrentUser();
       return [...(db.conversationsByUserId[user.id] ?? [])].sort((a, b) =>
