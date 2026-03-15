@@ -5,6 +5,7 @@ import { AlertDialog as AlertDialogPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 
 function AlertDialog({
   ...props
@@ -36,7 +37,7 @@ function AlertDialogOverlay({
     <AlertDialogPrimitive.Overlay
       data-slot="alert-dialog-overlay"
       className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px]",
         className
       )}
       {...props}
@@ -148,17 +149,27 @@ function AlertDialogAction({
   className,
   variant = "default",
   size = "default",
+  loading = false,
+  loadingText,
+  children,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Action> &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
+  Pick<React.ComponentProps<typeof LoadingButton>, "variant" | "size"> & {
+    loading?: boolean
+    loadingText?: string
+  }) {
   return (
-    <Button variant={variant} size={size} asChild>
-      <AlertDialogPrimitive.Action
-        data-slot="alert-dialog-action"
+    <AlertDialogPrimitive.Action data-slot="alert-dialog-action" asChild {...props}>
+      <LoadingButton
+        variant={variant}
+        size={size}
         className={cn(className)}
-        {...props}
-      />
-    </Button>
+        loading={loading}
+        loadingText={loadingText}
+      >
+        {children}
+      </LoadingButton>
+    </AlertDialogPrimitive.Action>
   )
 }
 

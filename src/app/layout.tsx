@@ -68,10 +68,10 @@ const danaFont = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Navid AI",
-    template: "%s | Navid AI",
+    default: "Nora AI",
+    template: "%s | Nora AI",
   },
-  description: "Navid AI workspace.",
+  description: "Nora AI workspace.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [

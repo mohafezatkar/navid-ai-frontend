@@ -22,7 +22,7 @@ export function LaunchCtaSection() {
 
   return (
     <motion.section
-      className="relative flex min-h-svh items-center px-4 py-8 md:px-8 md:py-10"
+      className="relative flex min-h-svh items-center px-6 py-14 md:px-10 md:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={LANDING_REVEAL_VIEWPORT}
@@ -50,7 +50,7 @@ export function LaunchCtaSection() {
 
             <motion.div className="mt-8 flex flex-wrap items-center justify-center" variants={itemVariants}>
               <Button asChild variant="secondary" size="lg">
-                <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
+                <Link href={routes.auth.login}>{t("actions.tryNeura")}</Link>
               </Button>
             </motion.div>
           </motion.div>
@@ -59,4 +59,3 @@ export function LaunchCtaSection() {
     </motion.section>
   )
 }
-

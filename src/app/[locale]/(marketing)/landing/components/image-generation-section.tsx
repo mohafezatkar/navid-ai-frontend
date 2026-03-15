@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { useTranslations } from "next-intl"
 import { Sparkles } from "lucide-react"
 
+import { SectionGlowBlob } from "@/app/[locale]/(marketing)/landing/components/section-glow-blob"
 import {
   createRevealContainerVariants,
   createRevealItemVariants,
@@ -113,13 +114,13 @@ export function ImageGenerationSection() {
 
   return (
     <motion.section
-      className="relative overflow-hidden px-6 py-14 md:px-10 md:py-20"
+      className="relative flex min-h-svh items-center overflow-hidden px-6 py-14 md:px-10 md:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={LANDING_REVEAL_VIEWPORT}
     >
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-primary/10 blur-[110px] [inset-inline-start:-5rem]" />
+        <SectionGlowBlob side="start" />
       </div>
 
       <motion.div
@@ -128,8 +129,8 @@ export function ImageGenerationSection() {
       >
         <motion.div className="flex flex-col justify-between gap-12" variants={containerVariants}>
           <motion.div className="space-y-5" variants={containerVariants}>
-            <motion.p className="inline-flex items-center gap-2 text-sm font-medium text-accent" variants={itemVariants}>
-              <span className="h-1.5 w-1.5 rounded-full bg-primary/80" />
+            <motion.p className="inline-flex items-center gap-2 text-xl font-medium text-accent" variants={itemVariants}>
+              <span className="size-3 rounded-full bg-primary/80" />
               {t("pages.landing.imageGeneration.eyebrow")}
             </motion.p>
             <motion.h2
@@ -259,4 +260,3 @@ export function ImageGenerationSection() {
     </motion.section>
   )
 }
-

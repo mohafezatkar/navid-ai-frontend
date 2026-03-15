@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "Navid AI",
-    "brandName": "Navid",
+    "appName": "Neura",
+    "brandName": "Neura",
     "workspaceTagline": "Conversational workspace",
     "email": "Email",
     "password": "Password",
@@ -16,7 +16,7 @@
     "noEmail": "No email",
     "nameExample": "name@example.com",
     "birthDatePlaceholder": "MM/DD/YYYY",
-    "copyright": "Navid © 2015-2026"
+    "copyright": "Nora © 2015-2026"
   },
   "actions": {
     "continue": "Continue",
@@ -50,6 +50,7 @@
     "regenerate": "Regenerate",
     "attachFiles": "Attach files",
     "edit": "Edit",
+    "copy": "Copy",
     "saveAndRegenerate": "Save and regenerate",
     "goHome": "Go home",
     "goToChat": "Go to chat",
@@ -58,8 +59,7 @@
     "togglePasswordVisibility": "Toggle password visibility",
     "openNavigationMenu": "Open navigation menu",
     "close": "Close",
-    "tryNavid": "Try Navid",
-    "tryNavid21": "Try Navid 2.1",
+    "tryNeura": "Try Neura",
     "tryNow": "Try now",
     "manageCookies": "Manage cookies"
   },
@@ -87,7 +87,8 @@
     "ready": "Ready",
     "queued": "Queued",
     "starting": "Getting started.",
-    "generatingImage": "Creating image. May take a moment."
+    "generatingImage": "Creating image. May take a moment.",
+    "responseCopied": "Response copied to clipboard."
   },
   "auth": {
     "orContinueWith": "Or continue with",
@@ -98,7 +99,7 @@
     "termsPasswordStep": "By continuing, you agree to the Terms of Service and Privacy Policy.",
     "termsAgeStep": "By clicking \"Continue\", you agree to our Terms and have read our Privacy Policy.",
     "aside": {
-      "eyebrow": "Navid AI Workspace",
+      "eyebrow": "Nora Workspace",
       "title": "Build and iterate with AI conversations that stay organized.",
       "description": "A fast workspace for prompts, files, and model-driven responses with secure session handling built in.",
       "feature1": "Structured chat history and model switching",
@@ -120,7 +121,8 @@
       "descriptionEmail": "Start with your email address.",
       "descriptionPassword": "Create a secure password for {email}.",
       "descriptionCode": "Enter the {codeLength}-digit verification code we sent to {email}.",
-      "descriptionAge": "This helps us personalize your experience and keep Navid AI safe."
+      "descriptionHint": "Because of the emergency status of the country, the email code is by default: 123456",
+      "descriptionAge": "This helps us personalize your experience and keep Nora safe."
     },
     "forgotPassword": {
       "title": "Reset your password",
@@ -139,7 +141,7 @@
       "fullNameRequired": "Please enter your full name.",
       "birthDateFormat": "Enter your birth date as MM/DD/YYYY.",
       "birthDateValid": "Enter a valid birth date.",
-      "mustBeAdult": "You must be at least 18 years old to use Navid AI.",
+      "mustBeAdult": "You must be at least 18 years old to use Neura.",
       "passwordsMustMatch": "Passwords must match.",
       "displayNameMin": "Please enter at least 2 characters.",
       "verificationCodeDigits": "Enter the {count}-digit verification code."
@@ -175,6 +177,9 @@
       "failedEditMessage": "Failed to edit message.",
       "failedRegenerateResponse": "Could not regenerate response.",
       "failedDeleteConversation": "Failed to delete conversation.",
+      "failedSendFeedback": "Failed to send feedback.",
+      "failedCopyMessage": "Failed to copy response.",
+      "feedbackRequiredBeforeSend": "Rate the latest AI response (good or bad) to continue.",
       "unavailableTitle": "Conversation unavailable",
       "unavailableDescription": "Try refreshing this page or return to chat home.",
       "failedLoadHelpTitle": "Could not load help content",
@@ -211,6 +216,8 @@
     "persian": "فارسی",
     "navigation": "Navigation",
     "conversationsAndShortcuts": "Conversations and account shortcuts.",
+    "product": "Product",
+    "features": "Features",
     "apiPlatform": "API Platform",
     "sagittariEngine": "Sagittari Engine",
     "research": "Research",
@@ -244,9 +251,14 @@
       "homeInputPlaceholder": "Ask anything",
       "noMessagesYet": "No messages yet",
       "composerPlaceholder": "Type your message...",
+      "footerDisclaimer": "Nora can make mistakes. Check important info.",
       "editMessage": "Edit message",
       "deleteConversationTitle": "Delete conversation?",
       "deleteConversationDescription": "This action cannot be undone.",
+      "thoughtLabel": "Thought",
+      "thoughtPanelTitle": "Thinking",
+      "goodResponse": "Good response",
+      "badResponse": "Bad response",
       "userRole": "User",
       "assistantRole": "Assistant"
     },
@@ -270,9 +282,9 @@
       "themeSystem": "System"
     },
     "onboarding": {
-      "intentTitle": "What brings you to Navid?",
+      "intentTitle": "What brings you to Neura?",
       "intentDescription": "We'll use this information to suggest ideas you might find useful.",
-      "goalsTitle": "What do you want to do with Navid?",
+      "goalsTitle": "What do you want to do with Neura?",
       "goalsDescription": "Pick one or more options so we can tailor your first suggestions.",
       "tourLine1": "Nice to meet you.",
       "tourLine2": "Here's a quick tour...",
@@ -281,12 +293,12 @@
         "progress": "Step {current} of {total}",
         "skipTour": "Skip tour",
         "readyTitle": "You're all set",
-        "readyDescription": "Navid can make mistakes. Review important details before acting on responses.",
+        "readyDescription": "Nora can make mistakes. Review important details before acting on responses.",
         "readyLegal": "By continuing, you agree to our Terms and have read our Privacy Policy.",
         "steps": {
           "ask": {
             "title": "Ask anything",
-            "description": "From quick questions to big ideas, Navid is here to help.",
+            "description": "From quick questions to big ideas, Nora is here to help.",
             "prompt": "Suggest weeknight dinner ideas that are trendy and quick",
             "responseHeading": "Here are three fast options you can try tonight:",
             "point1": "One-pan baked feta pasta with cherry tomatoes and basil.",
@@ -339,9 +351,9 @@
       }
     },
     "landing": {
-      "launchBadge": "Navid 1.0 - Public Launch Coming Soon",
+      "launchBadge": "Nora 1.0 - Public Launch Coming Soon",
       "heroTitle": "AI That Truly Understands You",
-      "heroDescription": "Navid is a next-generation language model built for speed, deep reasoning, and precise results across coding, analysis, writing, and problem-solving.",
+      "heroDescription": "Nora is a next-generation language model built for speed, deep reasoning, and precise results across coding, analysis, writing, and problem-solving.",
       "promptInputLabel": "Prompt input",
       "sendPromptLabel": "Send prompt",
       "prompts": {
@@ -357,19 +369,19 @@
         "p10": "Plan a 5-day trip"
       },
       "intelligence": {
-        "eyebrow": "Meet Navid",
-        "title": "Navid is an intelligent system designed to handle complex tasks, generate visuals, and respond with deep personalization while adapting to your needs with a remarkably human touch.",
-        "description": "Whether you're crafting ideas, solving challenges, or simply exploring, Navid understands your context."
+        "eyebrow": "Meet Nora",
+        "title": "Nora is your intelligent assistant for faster learning, organized ideas, simpler tasks, and personalized, accurate answers.",
+        "description": "Whether you're crafting ideas, solving challenges, or simply exploring, Nora understands your context."
       },
       "standout": {
-        "eyebrow": "Why Navid Stands Out",
+        "eyebrow": "Why Nora Stands Out",
         "title": "Smarter responses. Stunning visuals. Always adaptive.",
-        "description": "Navid provides powerful, personalized support that feels intuitive and responsive.",
+        "description": "Nora provides powerful, personalized support that feels intuitive and responsive.",
         "cards": {
           "complexityTitle": "Handles Complexity with Ease",
-          "complexityDescription": "Navid understands layers of context, nuance, and intent so you can move through hard problems with clarity and speed.",
+          "complexityDescription": "Nora understands layers of context, nuance, and intent so you can move through hard problems with clarity and speed.",
           "visualsTitle": "Generates Visuals Instantly",
-          "visualsDescription": "From abstract ideas to polished outputs, Navid turns your prompts into compelling visuals ready to share and iterate.",
+          "visualsDescription": "From abstract ideas to polished outputs, Nora turns your prompts into compelling visuals ready to share and iterate.",
           "personalizedTitle": "Personalized Just for You",
           "personalizedDescription": "Responses adapt to your style, goals, and domain context so every interaction feels natural, precise, and useful."
         }
@@ -377,21 +389,21 @@
       "imageGeneration": {
         "eyebrow": "Text-to-Image Generation",
         "title": "Describe it, and watch your imagination come to life with stunning detail.",
-        "description": "Navid understands even complex visual prompts and transforms abstract, surreal, or hyper-specific ideas into production-ready image outputs.",
-        "step1Alt": "A towering stone monolith in a dramatic mountain valley",
-        "step1Prompt": "A towering, majestic stone monolith that rises high into the sky. The structure exudes an air of mysticism with intricate carvings and ancient markings.",
-        "step2Alt": "A futuristic city with glowing structures at dusk",
-        "step2Prompt": "A futuristic skyline at dusk with luminous architecture, reflective canals, and cinematic atmospheric fog across the horizon.",
-        "step3Alt": "A surreal desert scene with advanced sci-fi machinery",
-        "step3Prompt": "A surreal desert with colossal sci-fi machinery buried in sand, dramatic lighting, and ultra-detailed textures in a wide cinematic composition."
+        "description": "Nora understands even complex visual prompts and transforms abstract, surreal, or hyper-specific ideas into production-ready image outputs.",
+        "step1Alt": "Mountain fortress atop a jagged peak above the clouds",
+        "step1Prompt": "A mountain fortress built into a jagged peak above the clouds, dark stormy sky, cinematic lighting, glowing windows, volumetric fog, ultra-detailed, photorealistic, epic scale, moody atmosphere, concept art.",
+        "step2Alt": "Cute puppies and kittens playing in a sunlit flower garden",
+        "step2Prompt": "Cute puppies and kittens playing together in a sunny flower garden, soft golden light, fluffy fur, vibrant flowers, shallow depth of field, photorealistic, joyful and wholesome mood.",
+        "step3Alt": "Astronaut painting the Mona Lisa in a moody art studio",
+        "step3Prompt": "Astronaut painting the Mona Lisa on an easel in a moody art studio, cinematic lighting, photorealistic, surreal."
       },
       "engine": {
-        "eyebrow": "Inside Navid Engines",
-        "title": "Unleashing the Power of Navid Intelligence Stack",
+        "eyebrow": "Inside Nora Engines",
+        "title": "Unleashing the Power of Nora Intelligence Stack",
         "metricTitle": "Faster Response Time and Generative Accuracy",
         "card1Title": "Sagittari Core",
         "card1Description": "Enhance image generation throughput up to 40% with optimized inference routing.",
-        "card2Title": "Navid Deep Research",
+        "card2Title": "Nora Deep Research",
         "card2Description": "Handle deep research tasks with richer context synthesis and faster retrieval.",
         "card3Title": "Collaboration With Google Deep Learning",
         "card3Description": "Built on modern model techniques for reliable reasoning and responsive output.",
@@ -400,7 +412,7 @@
         "workflows": "Production-ready workflows"
       },
       "cta": {
-        "title": "Do More With Navid"
+        "title": "Do More With Neura"
       }
     }
   }

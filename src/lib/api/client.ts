@@ -19,6 +19,7 @@ import {
   listConversations,
   regenerateLastAssistantMessage,
   sendMessage,
+  setMessageFeedback,
   stopStream,
   uploadAttachment,
 } from "@/app/[locale]/(protected)/(workspace)/chat/services/chatService";
@@ -50,6 +51,7 @@ export const apiClient: ApiClient = {
     sendMessage,
     stopStream,
     editUserMessage,
+    setMessageFeedback,
     regenerateLastAssistantMessage,
     deleteConversation,
     uploadAttachment,

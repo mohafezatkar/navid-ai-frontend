@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 type AuthCardProps = {
   title: string;
   description: string;
+  descriptionHint?: string;
   footer?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -25,6 +26,7 @@ type AuthCardProps = {
 export function AuthCard({
   title,
   description,
+  descriptionHint,
   footer,
   children,
   className,
@@ -39,6 +41,7 @@ export function AuthCard({
       <CardHeader className={cn("space-y-2", headerClassName)}>
         <CardTitle className={cn("text-2xl tracking-tight", titleClassName)}>{title}</CardTitle>
         <CardDescription className={descriptionClassName}>{description}</CardDescription>
+        <CardDescription className={descriptionClassName}>{descriptionHint}</CardDescription>
       </CardHeader>
       <CardContent className={cn("space-y-5", contentClassName)}>
         {children}

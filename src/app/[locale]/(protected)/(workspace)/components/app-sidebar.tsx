@@ -11,7 +11,6 @@ import { UserMenu } from "@/app/[locale]/(protected)/(workspace)/components/user
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useConversationsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-conversations-query";
-import { useCreateConversationMutation } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-chat-mutations";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
 import { useUIStore } from "@/stores/ui-store";
@@ -51,15 +50,13 @@ export function AppSidebar() {
   const isSidebarCollapsed = useUIStore((state) => state.isSidebarCollapsed);
   const setSidebarCollapsed = useUIStore((state) => state.setSidebarCollapsed);
   const conversationsQuery = useConversationsQuery();
-  const createConversationMutation = useCreateConversationMutation();
   const isTextVisible = !isSidebarCollapsed && !isCollapsing;
 
   const activeConversationId = getActiveConversationId(pathname);
 
-  const createConversation = async () => {
+  const startNewChat = () => {
     window.dispatchEvent(new CustomEvent("chat:new-chat-clicked"));
-    const conversation = await createConversationMutation.mutateAsync();
-    router.push(routes.workspace.conversation(conversation.id));
+    router.push(routes.workspace.chat);
   };
 
   const collapseSidebar = () => {
@@ -97,7 +94,7 @@ export function AppSidebar() {
       }}
       className={cn(
         "group/sidebar hidden h-screen shrink-0 overflow-hidden bg-sidebar px-2 py-3 md:flex md:flex-col",
-        isSidebarCollapsed && "cursor-pointer",
+        isSidebarCollapsed && "cursor-ew-resize",
       )}
     >
       {isSidebarCollapsed ? (
@@ -119,7 +116,7 @@ export function AppSidebar() {
           <Button
             variant="ghost"
             size="icon"
-            className="ms-auto shrink-0 text-muted-foreground hover:text-foreground"
+            className="ms-auto shrink-0 cursor-ew-resize text-muted-foreground hover:cursor-ew-resize hover:text-foreground"
             onClick={collapseSidebar}
             disabled={isCollapsing}
           >
@@ -136,7 +133,7 @@ export function AppSidebar() {
               size="sm"
               variant="ghost"
               className="h-9 justify-start gap-2 rounded-md px-2 font-normal"
-              onClick={() => void createConversation()}
+              onClick={startNewChat}
             >
               <span className={NAV_ICON_SLOT_CLASS}>
                 <SquarePen className="size-4" />
@@ -227,7 +224,7 @@ export function AppSidebar() {
               variant="ghost"
               onClick={(event) => {
                 event.stopPropagation();
-                void createConversation();
+                startNewChat();
               }}
               aria-label={t("actions.newChat")}
             >
@@ -242,5 +239,4 @@ export function AppSidebar() {
     </motion.aside>
   );
 }
-
 

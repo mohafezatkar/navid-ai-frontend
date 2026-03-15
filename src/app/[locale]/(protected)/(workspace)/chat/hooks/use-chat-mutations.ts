@@ -10,6 +10,7 @@ import {
   editUserMessage,
   regenerateLastAssistantMessage,
   sendMessage,
+  setMessageFeedback,
   uploadAttachment,
 } from "@/app/[locale]/(protected)/(workspace)/chat/services/chatService";
 
@@ -54,15 +55,13 @@ export function useSendMessageMutation() {
         onEvent,
       );
     },
-    onSuccess: async (_, variables) => {
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.chat.conversations(),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.chat.conversation(variables.conversationId),
-        }),
-      ]);
+    onSuccess: (_, variables) => {
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.chat.conversations(),
+      });
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.chat.conversation(variables.conversationId),
+      });
     },
   });
 }
@@ -109,6 +108,18 @@ export function useDeleteConversationMutation() {
       queryClient.removeQueries({
         queryKey: queryKeys.chat.conversation(conversationId),
       });
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.chat.conversations(),
+      });
+    },
+  });
+}
+
+export function useMessageFeedbackMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: setMessageFeedback,
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.chat.conversations(),
       });

@@ -3,6 +3,7 @@ import { delay, http, HttpResponse } from "msw";
 import {
   createConversationInputSchema,
   editUserMessageInputSchema,
+  messageFeedbackInputSchema,
   regenerateLastAssistantMessageInputSchema,
   sendMessageInputSchema,
 } from "@/lib/contracts";
@@ -16,7 +17,13 @@ export const chatHandlers = [
   http.get(apiPath("/chat/conversations"), async () => {
     try {
       await delay(180);
-      return HttpResponse.json(mockDb.chat.listConversations());
+      const conversations = mockDb.chat.listConversations();
+      return HttpResponse.json({
+        count: conversations.length,
+        next: null,
+        previous: null,
+        results: conversations,
+      });
     } catch (error) {
       return asMockErrorResponse(error);
     }
@@ -44,6 +51,72 @@ export const chatHandlers = [
     }
   }),
 
+  http.get(apiPath("/chat/conversations/:conversationId/messages"), async ({ params }) => {
+    try {
+      await delay(140);
+      const conversationId = String(params.conversationId);
+      const payload = mockDb.chat.getConversation(conversationId);
+      return HttpResponse.json({
+        nextCursor: null,
+        previousCursor: null,
+        results: payload.messages,
+      });
+    } catch (error) {
+      return asMockErrorResponse(error);
+    }
+  }),
+
+  http.post(
+    apiPath("/chat/conversations/:conversationId/messages/stream"),
+    async ({ params, request }) => {
+      try {
+        await delay(180);
+        const conversationId = String(params.conversationId);
+        const body = sendMessageInputSchema
+          .omit({ conversationId: true })
+          .parse(await request.json());
+        const assistantMessage = mockDb.chat.addMessage({
+          conversationId,
+          ...body,
+        });
+
+        const encoder = new TextEncoder();
+        const chunks = assistantMessage.content.split(/(\s+)/).filter(Boolean);
+        const stream = new ReadableStream<Uint8Array>({
+          async start(controller) {
+            for (const chunk of chunks) {
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify({ chunk })}\n\n`),
+              );
+              await delay(24);
+            }
+
+            controller.enqueue(
+              encoder.encode(
+                `data: ${JSON.stringify({
+                  status: "done",
+                  fullMessageId: assistantMessage.id,
+                })}\n\n`,
+              ),
+            );
+            controller.close();
+          },
+        });
+
+        return new HttpResponse(stream, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/event-stream",
+            "Cache-Control": "no-cache",
+            Connection: "keep-alive",
+          },
+        });
+      } catch (error) {
+        return asMockErrorResponse(error);
+      }
+    },
+  ),
+
   http.post(apiPath("/chat/conversations/:conversationId/messages"), async ({ params, request }) => {
     try {
       await delay(250);
@@ -55,7 +128,26 @@ export const chatHandlers = [
         conversationId,
         ...body,
       });
-      return HttpResponse.json({ assistantMessage }, { status: 201 });
+      return HttpResponse.json(assistantMessage, { status: 200 });
+    } catch (error) {
+      return asMockErrorResponse(error);
+    }
+  }),
+
+  http.patch(apiPath("/chat/messages/:messageId/feedback"), async ({ params, request }) => {
+    try {
+      await delay(160);
+      const rawBody = await request.json();
+      const feedback =
+        typeof rawBody === "object" && rawBody !== null
+          ? (rawBody as { feedback?: unknown }).feedback
+          : undefined;
+      const parsed = messageFeedbackInputSchema.parse({
+        messageId: String(params.messageId),
+        feedback,
+      });
+      mockDb.chat.setMessageFeedback(parsed);
+      return new HttpResponse(null, { status: 204 });
     } catch (error) {
       return asMockErrorResponse(error);
     }

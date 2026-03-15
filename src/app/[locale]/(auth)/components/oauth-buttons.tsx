@@ -37,7 +37,6 @@ function GoogleIcon({ className }: { className?: string }) {
 
 export function OAuthButtons({
   onGoogleClick,
-  disabled,
   className,
   label,
 }: OAuthButtonsProps) {
@@ -48,8 +47,8 @@ export function OAuthButtons({
     <Button
       type="button"
       variant="outline"
-      className={cn("w-full justify-center gap-2", className)}
-      disabled={disabled}
+      className={cn("w-full justify-center gap-2 cursor-not-allowed!", className)}
+      disabled={true}
       onClick={onGoogleClick}
     >
       <GoogleIcon />

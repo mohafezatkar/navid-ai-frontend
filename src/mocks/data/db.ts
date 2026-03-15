@@ -7,6 +7,7 @@ import type {
 } from "@/lib/api/types";
 import type { HelpArticle } from "@/lib/contracts/help";
 import type { ThemeMode } from "@/lib/contracts/common";
+import type { MessageFeedback } from "@/lib/contracts";
 import { MockHttpError } from "@/mocks/data/errors";
 
 type MockUser = {
@@ -97,6 +98,7 @@ const initialUsers: MockUser[] = [
 const demoConversation: Conversation = {
   id: "conv_demo",
   title: "Product launch checklist",
+  createdAt: nowIso(),
   modelId: "gpt-4o-mini",
   updatedAt: nowIso(),
   preview: "Help me draft a launch checklist for a new SaaS feature.",
@@ -282,17 +284,22 @@ export const mockDb = {
         a.updatedAt < b.updatedAt ? 1 : -1,
       );
     },
-    createConversation(input: { modelId: string }): Conversation {
+    createConversation(input: { modelId?: string }): Conversation {
       const user = requireCurrentUser();
-      const exists = db.models.some((model) => model.id === input.modelId);
-      if (!exists) {
-        throw new MockHttpError(400, "INVALID_MODEL", "Model does not exist.");
+      const resolvedModelId = input.modelId ?? db.models[0]?.id ?? "default-model";
+
+      if (input.modelId) {
+        const exists = db.models.some((model) => model.id === input.modelId);
+        if (!exists) {
+          throw new MockHttpError(400, "INVALID_MODEL", "Model does not exist.");
+        }
       }
 
       const conversation: Conversation = {
         id: createId("conv"),
         title: "New conversation",
-        modelId: input.modelId,
+        createdAt: nowIso(),
+        modelId: resolvedModelId,
         updatedAt: nowIso(),
         preview: "",
       };
@@ -408,6 +415,29 @@ export const mockDb = {
         regeneratedAssistant,
       ];
       bumpConversation(conversation, regeneratedAssistant.content, lastUserMessage.content);
+    },
+    setMessageFeedback(input: {
+      messageId: string;
+      feedback: MessageFeedback;
+    }): void {
+      const user = requireCurrentUser();
+      const conversations = db.conversationsByUserId[user.id] ?? [];
+
+      for (const conversation of conversations) {
+        const messages = ensureMessages(conversation.id);
+        const targetIndex = messages.findIndex(
+          (message) => message.id === input.messageId && message.role === "assistant",
+        );
+        if (targetIndex >= 0) {
+          messages[targetIndex] = {
+            ...messages[targetIndex],
+            feedback: input.feedback,
+          };
+          return;
+        }
+      }
+
+      throw new MockHttpError(404, "MESSAGE_NOT_FOUND", "Assistant message not found.");
     },
     deleteConversation(conversationId: string): void {
       const user = requireCurrentUser();

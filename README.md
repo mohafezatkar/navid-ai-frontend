@@ -1,4 +1,4 @@
-# Navid AI Frontend
+# Nora AI Frontend
 ChatGPT-like frontend built on Next.js 16 App Router, with ShadCN, Framer Motion, React Query, Zustand, and MSW (mock-first API mode).
 
 ## What Was Implemented
@@ -165,7 +165,7 @@ pnpm lint
 ```
 
 ## Mock Login (for quick local testing)
-- Email: `demo@navid.ai`
+- Email: `demo@neura.ai`
 - Password: `password123`
 
 ## Notable Config

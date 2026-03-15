@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
@@ -112,7 +112,7 @@ export default function SignupPage() {
   const [verificationCodeLength, setVerificationCodeLength] = useState(6);
   const [verificationCode, setVerificationCode] = useState("");
   const [fullName, setFullName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthDate] = useState(()=>formatBirthDateInput("01/02/2001"));
   const [fullNameError, setFullNameError] = useState<string | null>(null);
   const [birthDateError, setBirthDateError] = useState<string | null>(null);
   const signupStartMutation = useSignupStartMutation();
@@ -148,6 +148,10 @@ export default function SignupPage() {
       password: "",
     },
   });
+
+  useEffect(() => {
+    setBirthDate(formatBirthDateInput("01012001"));
+  }, [fullName]);
 
   const email = useWatch({
     control: form.control,
@@ -305,7 +309,11 @@ export default function SignupPage() {
                   codeLength: verificationCodeLength,
                   email: emailText,
                 })
-              : t("auth.signup.descriptionAge")
+              : t("auth.signup.descriptionAge")            
+      }
+      descriptionHint= {
+        step === "code"
+          ? t("auth.signup.descriptionHint"):t("")            
       }
       className="border-0 bg-transparent shadow-none backdrop-blur-none"
       headerClassName="items-center text-center pb-4"
@@ -486,7 +494,7 @@ export default function SignupPage() {
               ) : null}
             </div>
 
-            <div className="grid gap-2">
+            {/* <div className="grid gap-2">
               <Label htmlFor="signup-birth-date">{t("common.birthDate")}</Label>
               <Input
                 id="signup-birth-date"
@@ -500,13 +508,14 @@ export default function SignupPage() {
                     setBirthDateError(null);
                   }
                 }}
+                disabled={true}
                 placeholder={t("common.birthDatePlaceholder")}
                 className="h-11 rounded-md border-border/70 bg-background shadow-none"
               />
               {birthDateError ? (
                 <p className="text-sm text-destructive">{birthDateError}</p>
               ) : null}
-            </div>
+            </div> */}
 
             <p className="text-center text-xs leading-5 text-muted-foreground">
               {t("auth.termsAgeStep")}

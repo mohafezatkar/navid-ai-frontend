@@ -37,14 +37,14 @@ export function StandoutSection() {
 
   return (
     <motion.section
-      className="relative isolate overflow-hidden bg-transparent px-6 py-14 md:px-10 md:py-16"
+      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-transparent px-6 py-14 md:px-10 md:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={LANDING_REVEAL_VIEWPORT}
     >
       <motion.div className="mx-auto max-w-5xl text-center" variants={containerVariants}>
-        <motion.p className="inline-flex items-center justify-center gap-2 text-sm font-medium text-accent" variants={itemVariants}>
-          <Circle className="size-2 fill-current" />
+        <motion.p className="inline-flex items-center justify-center gap-2 text-xl font-medium text-accent" variants={itemVariants}>
+          <Circle className="size-3 fill-current" />
           {t("pages.landing.standout.eyebrow")}
         </motion.p>
         <motion.h2
@@ -71,4 +71,3 @@ export function StandoutSection() {
     </motion.section>
   )
 }
-

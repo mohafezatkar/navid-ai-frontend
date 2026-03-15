@@ -4,8 +4,9 @@ import type { ReactNode } from "react"
 import { useEffect, useState, useSyncExternalStore } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { useLocale, useTranslations } from "next-intl"
+import { useTheme } from "next-themes"
 import Image from "next/image"
-import { Menu } from "lucide-react"
+import { Menu, Moon, Sun } from "lucide-react"
 
 import { LanguageSwitcher } from "@/components/shared/language-switcher"
 import { cn } from "@/lib/utils"
@@ -18,6 +19,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Toggle } from "@/components/ui/toggle"
 import {
   createRevealContainerVariants,
   createRevealItemVariants,
@@ -27,12 +29,10 @@ import { Link } from "@/i18n/navigation"
 import { routes } from "@/lib/routes"
 
 const NAV_ITEMS = [
-  { key: "apiPlatform", href: "#link" },
-  { key: "sagittariEngine", href: "#link" },
-  { key: "research", href: "#link" },
-  { key: "news", href: "#link" },
-  { key: "pricing", href: "#link" },
-  { key: "career", href: "#link" },
+  { key: "product", href: routes.marketing.landing.sections.product },
+  { key: "features", href: routes.marketing.landing.sections.features },
+  { key: "research", href: routes.marketing.landing.sections.research },
+  { key: "pricing", href: routes.marketing.landing.sections.pricing },
 ]
 
 type LandingHeaderProps = {
@@ -46,8 +46,14 @@ function subscribeToClientReady(): () => void {
 export function LandingHeader({ children }: LandingHeaderProps) {
   const t = useTranslations()
   const isRtl = isRtlLanguage(useLocale())
+  const { resolvedTheme, setTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const isMounted = useSyncExternalStore(subscribeToClientReady, () => true, () => false)
+  const isDarkTheme = resolvedTheme === "dark"
+  const isDarkThemeReady = isMounted && isDarkTheme
+  const nextThemeLabel = isDarkThemeReady
+    ? t("pages.settings.themeLight")
+    : t("pages.settings.themeDark")
   const prefersReducedMotion = useReducedMotion()
   const navContainerVariants = createRevealContainerVariants(prefersReducedMotion, {
     delayChildren: 0.08,
@@ -84,7 +90,7 @@ export function LandingHeader({ children }: LandingHeaderProps) {
           className={cn(
             "border-none transition-colors duration-300",
             isScrolled
-              ? "border-b border-border/60 bg-background/90 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70"
+              ? "border-b border-border/60 bg-background/90 backdrop-blur-xl supports-backdrop-filter:bg-background/70"
               : "bg-transparent",
           )}
         >
@@ -95,7 +101,11 @@ export function LandingHeader({ children }: LandingHeaderProps) {
             variants={navContainerVariants}
           >
             <motion.div variants={navItemVariants}>
-              <Link href="/" aria-label={t("actions.goHome")} className="flex items-center text-foreground">
+              <Link
+                href={routes.marketing.landing.root}
+                aria-label={t("actions.goHome")}
+                className="flex items-center text-foreground"
+              >
                 <Image
                   src="/brand/logo.svg"
                   alt={t("common.brandName")}
@@ -105,7 +115,7 @@ export function LandingHeader({ children }: LandingHeaderProps) {
                   className="h-16 w-auto"
                 />
                 <span className="select-none text-2xl font-bold tracking-tight text-foreground/90 md:ms-1">
-                  Navid
+                  Neura
                 </span>
               </Link>
             </motion.div>
@@ -137,13 +147,36 @@ export function LandingHeader({ children }: LandingHeaderProps) {
                   asChild
                   variant="default"
                   size="lg"
-                  className="hidden text-md font-semibold md:inline-flex"
+                  className="hidden text-md font-medium md:inline-flex"
                 >
-                  <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
+                  <Link href={routes.auth.login}>{t("actions.tryNeura")}</Link>
                 </Button>
               </motion.div>
               <motion.div variants={navItemVariants} className="hidden md:block">
                 <LanguageSwitcher />
+              </motion.div>
+              <motion.div variants={navItemVariants} className="hidden md:block">
+                <Toggle
+                  variant="outline"
+                  className="group relative size-9 cursor-pointer bg-background text-foreground data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:hover:bg-muted"
+                  pressed={isDarkThemeReady}
+                  onPressedChange={(pressed) => setTheme(pressed ? "dark" : "light")}
+                  aria-label={`${t("common.theme")}: ${nextThemeLabel}`}
+                  disabled={!isMounted}
+                >
+                  <Moon
+                    size={16}
+                    strokeWidth={2}
+                    className="shrink-0 scale-0 opacity-0 transition-all group-data-[state=on]:scale-100 group-data-[state=on]:opacity-100"
+                    aria-hidden="true"
+                  />
+                  <Sun
+                    size={16}
+                    strokeWidth={2}
+                    className="absolute shrink-0 scale-100 opacity-100 transition-all group-data-[state=on]:scale-0 group-data-[state=on]:opacity-0"
+                    aria-hidden="true"
+                  />
+                </Toggle>
               </motion.div>
 
               <motion.div variants={navItemVariants}>
@@ -186,9 +219,31 @@ export function LandingHeader({ children }: LandingHeaderProps) {
                           </motion.div>
                         ))}
                         <motion.div variants={createRevealItemVariants(prefersReducedMotion, { y: 10, delay: 0.24, duration: 0.5 })}>
-                          <LanguageSwitcher className="mb-3" />
+                          <div className="mb-3 flex items-center justify-between gap-3">
+                            <LanguageSwitcher className="w-full justify-between" />
+                            <Toggle
+                              variant="outline"
+                              className="group relative size-9 cursor-pointer bg-background text-foreground data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:hover:bg-muted"
+                              pressed={isDarkThemeReady}
+                              onPressedChange={(pressed) => setTheme(pressed ? "dark" : "light")}
+                              aria-label={`${t("common.theme")}: ${nextThemeLabel}`}
+                            >
+                              <Moon
+                                size={16}
+                                strokeWidth={2}
+                                className="shrink-0 scale-0 opacity-0 transition-all group-data-[state=on]:scale-100 group-data-[state=on]:opacity-100"
+                                aria-hidden="true"
+                              />
+                              <Sun
+                                size={16}
+                                strokeWidth={2}
+                                className="absolute shrink-0 scale-100 opacity-100 transition-all group-data-[state=on]:scale-0 group-data-[state=on]:opacity-0"
+                                aria-hidden="true"
+                              />
+                            </Toggle>
+                          </div>
                           <Button asChild variant="default" size="lg" className="mt-2 font-semibold">
-                            <Link href={routes.auth.login}>{t("actions.tryNavid")}</Link>
+                            <Link href={routes.auth.login}>{t("actions.tryNeura")}</Link>
                           </Button>
                         </motion.div>
                       </motion.div>
@@ -216,4 +271,3 @@ export function LandingHeader({ children }: LandingHeaderProps) {
     </section>
   )
 }
-

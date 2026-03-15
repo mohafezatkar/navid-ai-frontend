@@ -67,6 +67,7 @@ export default function ChatHomePage() {
   }, [headingTemplates, shortName, t]);
 
   const [homeHeading, setHomeHeading] = useState(() => t("pages.chat.title"));
+  const [inputResetKey, setInputResetKey] = useState(0);
 
   useEffect(() => {
     setHomeHeading(pickRandomHeading());
@@ -75,6 +76,7 @@ export default function ChatHomePage() {
   useEffect(() => {
     const handleNewChatClicked = () => {
       setHomeHeading(pickRandomHeading());
+      setInputResetKey((key) => key + 1);
     };
 
     window.addEventListener("chat:new-chat-clicked", handleNewChatClicked);
@@ -96,6 +98,7 @@ export default function ChatHomePage() {
           {homeHeading}
         </h1>
         <ChatInput
+          key={inputResetKey}
           className="w-full p-2"
           placeholder={t("pages.chat.homeInputPlaceholder")}
           onSubmit={handleSubmit}

@@ -14,7 +14,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useConversationsQuery } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-conversations-query";
-import { useCreateConversationMutation } from "@/app/[locale]/(protected)/(workspace)/chat/hooks/use-chat-mutations";
 import { isRtlLanguage } from "@/i18n/routing";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routes } from "@/lib/routes";
@@ -27,12 +26,10 @@ export function MobileNavSheet() {
   const pathname = usePathname();
   const router = useRouter();
   const conversationsQuery = useConversationsQuery();
-  const createConversationMutation = useCreateConversationMutation();
 
-  const createConversation = async () => {
+  const startNewChat = () => {
     window.dispatchEvent(new CustomEvent("chat:new-chat-clicked"));
-    const conversation = await createConversationMutation.mutateAsync();
-    router.push(routes.workspace.conversation(conversation.id));
+    router.push(routes.workspace.chat);
   };
 
   return (
@@ -43,7 +40,11 @@ export function MobileNavSheet() {
           <span className="sr-only">{t("actions.openConversationSidebar")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side={isRtl ? "right" : "left"} className="w-80 bg-sidebar p-0">
+      <SheetContent
+        side={isRtl ? "right" : "left"}
+        className="w-80 bg-sidebar p-0"
+        style={{ "--sidebar-max-width": "20rem" }}
+      >
         <div className="space-y-2 px-3 py-3">
           <SidebarHeader />
           <nav className="grid gap-0.5 px-1">
@@ -51,7 +52,7 @@ export function MobileNavSheet() {
               size="sm"
               variant="ghost"
               className="h-9 justify-start rounded-md px-2.5 font-normal"
-              onClick={() => void createConversation()}
+              onClick={startNewChat}
             >
               <SquarePen className="size-4" />
               {t("actions.newChat")}

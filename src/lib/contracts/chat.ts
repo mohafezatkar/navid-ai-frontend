@@ -28,6 +28,7 @@ export const attachmentSchema = z.object({
 
 export const messageRoleSchema = z.enum(["user", "assistant", "system"]);
 export const messageStatusSchema = z.enum(["streaming", "done", "error"]);
+export const messageFeedbackSchema = z.enum(["good", "bad"]);
 
 export const messageSchema = z.object({
   id: idSchema,
@@ -36,24 +37,39 @@ export const messageSchema = z.object({
   attachments: z.array(attachmentSchema).optional(),
   createdAt: isoDateStringSchema,
   status: messageStatusSchema.optional(),
+  feedback: messageFeedbackSchema.nullable().optional(),
 });
 
 export const conversationSchema = z.object({
   id: idSchema,
   title: z.string().min(1),
-  modelId: idSchema,
+  createdAt: isoDateStringSchema.optional(),
   updatedAt: isoDateStringSchema,
-  preview: z.string(),
+  modelId: idSchema.optional(),
+  preview: z.string().optional(),
+});
+
+export const conversationListSchema = z.object({
+  count: z.number().int().nonnegative(),
+  next: z.string().nullable(),
+  previous: z.string().nullable(),
+  results: z.array(conversationSchema),
+});
+
+export const messageListSchema = z.object({
+  nextCursor: z.string().nullable(),
+  previousCursor: z.string().nullable(),
+  results: z.array(messageSchema),
 });
 
 export const sendMessageInputSchema = z.object({
   conversationId: idSchema,
   content: z.string().min(1),
-  attachments: z.array(attachmentSchema),
+  attachments: z.array(attachmentSchema).default([]),
 });
 
 export const createConversationInputSchema = z.object({
-  modelId: idSchema,
+  modelId: idSchema.optional(),
 });
 
 export const editUserMessageInputSchema = z.object({
@@ -66,7 +82,15 @@ export const regenerateLastAssistantMessageInputSchema = z.object({
   conversationId: idSchema,
 });
 
+export const messageFeedbackInputSchema = z.object({
+  messageId: idSchema,
+  feedback: messageFeedbackSchema,
+});
+
 export type Model = z.infer<typeof modelSchema>;
 export type Attachment = z.infer<typeof attachmentSchema>;
 export type Message = z.infer<typeof messageSchema>;
+export type MessageFeedback = z.infer<typeof messageFeedbackSchema>;
 export type Conversation = z.infer<typeof conversationSchema>;
+export type ConversationList = z.infer<typeof conversationListSchema>;
+export type MessageList = z.infer<typeof messageListSchema>;

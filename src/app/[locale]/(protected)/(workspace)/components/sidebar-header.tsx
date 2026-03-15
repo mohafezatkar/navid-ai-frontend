@@ -20,7 +20,7 @@ export function SidebarHeader({ collapsed = false }: SidebarHeaderProps) {
         collapsed && "w-full",
       )}
     >
-      <div className="rounded-md bg-foreground/10 p-1.5 text-foreground">
+      <div className="p-1.5 text-foreground">
         <Sparkles className="size-4" />
       </div>
     </Link>

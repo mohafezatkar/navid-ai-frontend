@@ -1,5 +1,22 @@
 export const routes = {
   home: "/",
+  marketing: {
+    landing: {
+      root: "/",
+      sectionIds: {
+        product: "product",
+        features: "features",
+        research: "research",
+        pricing: "pricing",
+      },
+      sections: {
+        product: "/#product",
+        features: "/#features",
+        research: "/#research",
+        pricing: "/#pricing",
+      },
+    },
+  },
   auth: {
     login: "/login",
     register: "/signup",

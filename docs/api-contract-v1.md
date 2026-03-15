@@ -1,4 +1,4 @@
-# Navid API Contract v1 (Auth + Onboarding Only)
+# Nora API Contract v1 (Auth + Onboarding Only)
 
 Audience: Shahdad, Alireza\
 Scope: This version intentionally includes only auth and onboarding endpoints.
@@ -241,7 +241,7 @@ Signup flow in frontend:
 ### Errors
 
 - `422 UNDERAGE` with message:
-  - `"You must be at least 18 years old to use Navid AI."`
+  - `"You must be at least 18 years old to use Nora AI."`
 - `400 VALIDATION_ERROR`
 - `410 SIGNUP_TOKEN_EXPIRED`
 

@@ -7,6 +7,7 @@ import {
   ArrowUp,
   Wrench,
 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +17,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { isRtlLanguage } from "@/i18n/routing";
+import { resolveContentTypography } from "@/lib/content-typography";
 import { cn } from "@/lib/utils";
 
 type ChatInputTool = {
@@ -27,7 +30,7 @@ type ChatInputProps = {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  onSubmit?: (value: string) => void | Promise<void>;
+  onSubmit?: (value: string) => boolean | void | Promise<boolean | void>;
   onToolSelect?: (toolId: string) => void;
   onAttachClick?: () => void;
   onVoiceClick?: () => void;
@@ -39,6 +42,9 @@ type ChatInputProps = {
   tools?: ChatInputTool[];
   className?: string;
   inputClassName?: string;
+  footerText?: string;
+  showDisclaimer?: boolean;
+  footerClassName?: string;
 };
 
 const DEFAULT_TOOLS: ChatInputTool[] = [
@@ -63,12 +69,20 @@ export function ChatInput({
   tools = DEFAULT_TOOLS,
   className,
   inputClassName,
+  footerText,
+  showDisclaimer = false,
+  footerClassName,
 }: ChatInputProps) {
+  const t = useTranslations();
+  const locale = useLocale();
+  const fallbackDir = isRtlLanguage(locale) ? "rtl" : "ltr";
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = React.useState(defaultValue);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const resolvedFooterText = footerText ?? (showDisclaimer ? t("pages.chat.footerDisclaimer") : undefined);
 
   const inputValue = isControlled ? value : internalValue;
+  const inputTypography = resolveContentTypography(inputValue, fallbackDir);
   const canSubmit = inputValue.trim().length > 0 && !disabled && !isSubmitting;
 
   const setValue = (nextValue: string) => {
@@ -86,100 +100,116 @@ export function ChatInput({
 
     try {
       setIsSubmitting(true);
-      await onSubmit?.(inputValue.trim());
-      setValue("");
+      const submitted = await onSubmit?.(inputValue.trim());
+      if (submitted !== false) {
+        setValue("");
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={cn(
-        "w-full rounded-full border border-border bg-card px-2 py-1",
-        className,
-      )}
-    >
-      <div className="flex items-center gap-1 pl-3 pr-1">
-        {showAttach ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            className="rounded-full"
-            onClick={onAttachClick}
-            disabled={disabled}
-            aria-label="Attach file"
-          >
-            <Plus className="size-4" />
-          </Button>
-        ) : null}
-
-        {showTools ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                className="rounded-full"
-                disabled={disabled}
-                aria-label="Open tools"
-              >
-                <Wrench className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              {tools.map((tool) => (
-                <DropdownMenuItem
-                  key={tool.id}
-                  onClick={() => onToolSelect?.(tool.id)}
-                >
-                  {tool.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ) : null}
-
-        <Input
-          value={inputValue}
-          onChange={(event) => setValue(event.target.value)}
-          disabled={disabled}
-          placeholder={placeholder}
-          className={cn(
-            "h-10 border-0 bg-card px-1 shadow-none focus-visible:ring-0 dark:bg-card text-lg font-light placeholder:text-lg placeholder:font-light",
-            inputClassName,
-          )}
-        />
-
-        <div className="flex items-center gap-1">
-          {showVoice ? (
+    <div className="w-full">
+      <form
+        onSubmit={handleSubmit}
+        className={cn(
+          "w-full rounded-full border border-border bg-card px-2 py-1",
+          className,
+        )}
+      >
+        <div className="flex items-center gap-1 pl-3 pr-1">
+          {showAttach ? (
             <Button
               type="button"
               variant="ghost"
               size="icon-sm"
               className="rounded-full"
-              onClick={onVoiceClick}
+              onClick={onAttachClick}
               disabled={disabled}
-              aria-label="Voice input"
+              aria-label="Attach file"
             >
-              <Mic className="size-4" />
+              <Plus className="size-4" />
             </Button>
           ) : null}
 
-          <Button
-            type="submit"
-            size="icon-sm"
-            className="rounded-full"
-            disabled={!canSubmit}
-            aria-label="Send message"
-          >
-            <ArrowUp className="size-4" />
-          </Button>
+          {showTools ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="rounded-full"
+                  disabled={disabled}
+                  aria-label="Open tools"
+                >
+                  <Wrench className="size-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                {tools.map((tool) => (
+                  <DropdownMenuItem
+                    key={tool.id}
+                    onClick={() => onToolSelect?.(tool.id)}
+                  >
+                    {tool.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null}
+
+          <Input
+            value={inputValue}
+            onChange={(event) => setValue(event.target.value)}
+            disabled={disabled}
+            placeholder={placeholder}
+            dir={inputTypography.dir}
+            className={cn(
+              "h-10 border-0 bg-card px-1 shadow-none focus-visible:ring-0 dark:bg-card text-lg font-light placeholder:text-lg placeholder:font-light",
+              inputTypography.fontClassName,
+              inputClassName,
+            )}
+          />
+
+          <div className="flex items-center gap-1">
+            {showVoice ? (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                className="rounded-full"
+                onClick={onVoiceClick}
+                disabled={disabled}
+                aria-label="Voice input"
+              >
+                <Mic className="size-4" />
+              </Button>
+            ) : null}
+
+            <Button
+              type="submit"
+              size="icon-sm"
+              className="rounded-full"
+              disabled={!canSubmit}
+              aria-label="Send message"
+            >
+              <ArrowUp className="size-4" />
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+      {resolvedFooterText ? (
+        <p
+          className={cn(
+            "mt-2 text-center text-xs text-muted-foreground",
+            footerClassName,
+          )}
+        >
+          {resolvedFooterText}
+        </p>
+      ) : null}
+    </div>
   );
 }

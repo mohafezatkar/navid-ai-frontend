@@ -55,7 +55,7 @@ export interface ApiClient {
   };
   chat: {
     listConversations(): Promise<Conversation[]>;
-    createConversation(input: { modelId: string }): Promise<Conversation>;
+    createConversation(): Promise<Conversation>;
     getConversation(id: string): Promise<{
       conversation: Conversation;
       messages: Message[];
@@ -69,6 +69,10 @@ export interface ApiClient {
       conversationId: string;
       messageId: string;
       content: string;
+    }): Promise<void>;
+    setMessageFeedback(input: {
+      messageId: string;
+      feedback: "good" | "bad";
     }): Promise<void>;
     regenerateLastAssistantMessage(input: { conversationId: string }): Promise<void>;
     deleteConversation(id: string): Promise<void>;
